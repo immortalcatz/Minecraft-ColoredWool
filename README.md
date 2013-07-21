@@ -231,4 +231,4 @@ picturefactory {
 
 ## Bugs
 
-Feel free to report any bug [here](https://github.com/Nauja/Minecraft/issues).
+Feel free to report any bug [here](https://github.com/Nauja/Minecraft-ColoredWool/issues).
