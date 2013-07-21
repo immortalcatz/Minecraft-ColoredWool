@@ -2,6 +2,7 @@ package org.minecraftnauja.coloredwool.menu;
 
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
 import org.minecraftnauja.coloredwool.block.ContainerFactory;
@@ -15,6 +16,12 @@ import cpw.mods.fml.relauncher.SideOnly;
  */
 @SideOnly(Side.CLIENT)
 public class GuiModelFactoryFurnace extends GuiContainer {
+
+	/**
+	 * Gui image.
+	 */
+	private static final ResourceLocation TEXTURE = new ResourceLocation(
+			"ColoredWool:textures/gui/pictureFactory.png");
 
 	/**
 	 * Tile entity.
@@ -51,8 +58,7 @@ public class GuiModelFactoryFurnace extends GuiContainer {
 	protected void drawGuiContainerBackgroundLayer(float par1, int par2,
 			int par3) {
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-		mc.renderEngine
-				.bindTexture("/mods/ColoredWool/textures/gui/pictureFactory.png");
+		mc.func_110434_K().func_110577_a(TEXTURE);
 		int x = (width - xSize) / 2;
 		int y = (height - ySize) / 2;
 		drawTexturedModalRect(x, y, 0, 0, xSize, ySize);

@@ -29,9 +29,8 @@ import org.minecraftnauja.coloredwool.tileentity.TileEntityPictureFactory;
 import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.common.ITickHandler;
 import cpw.mods.fml.common.Mod;
-import cpw.mods.fml.common.Mod.Init;
+import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
-import cpw.mods.fml.common.Mod.PreInit;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.TickType;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
@@ -124,20 +123,14 @@ public class ColoredWool implements ITickHandler {
 	 */
 	private static List<ImageImport> imageImport;
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@PreInit
+	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
 		side = event.getSide();
 		config = Config.load(event);
 		SavedColors.load(config.coloredWool.savedColors);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Init
+	@EventHandler
 	public void load(final FMLInitializationEvent event) throws IOException {
 		// Colored wool.
 		coloredWool = new BlockColoredWool(config.ids.coloredWoolId)

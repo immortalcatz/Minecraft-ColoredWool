@@ -409,7 +409,7 @@ public abstract class TileEntityFactory extends TileEntity implements
 	 * {@inheritDoc}
 	 */
 	@Override
-	public boolean isStackValidForSlot(int par1, ItemStack par2ItemStack) {
+	public boolean isItemValidForSlot(int par1, ItemStack par2ItemStack) {
 		if (par1 == COAL) {
 			return TileEntityFurnace.isItemFuel(par2ItemStack);
 		} else {
@@ -430,7 +430,7 @@ public abstract class TileEntityFactory extends TileEntity implements
 	 */
 	@Override
 	public boolean canInsertItem(int par1, ItemStack par2ItemStack, int par3) {
-		return this.isStackValidForSlot(par1, par2ItemStack);
+		return this.isItemValidForSlot(par1, par2ItemStack);
 	}
 
 	/**
