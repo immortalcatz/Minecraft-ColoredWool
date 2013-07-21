@@ -1,0 +1,20 @@
+*.class
+
+# Package Files #
+*.war
+*.ear
+
+/cpw
+/ibxm
+/net
+/paulscode
+*.cfg
+*.zip
+*.rar
+fmlversion.properties
+forge_logo.png
+mcp.png
+mcpmod.info
+Start.java
+*.lzma
+/ColoredWool

@@ -1,0 +1,18 @@
+[
+{
+  "modid": "ColoredWool",
+  "name": "Colored Wool",
+  "description": "Wool with full RGB color.",
+  "version": "0.7.0",
+  "mcversion": "1.5.2",
+  "logoFile": "",
+  "url": "https://github.com/Nauja/Minecraft-ColoredWool",
+  "updateUrl": "",
+  "authors": ["Nauja"],
+  "credits": "",
+  "requiredMods": [],
+  "parent": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
