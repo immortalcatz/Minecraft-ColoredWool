@@ -117,7 +117,7 @@ If you have a large number of colors, two buttons will be enabled (previous and 
 
 ## Download
 
-* [Releases](https://github.com/Nauja/Minecraft/raw/master/ColoredWool/ColoredWool-1.6.2-0.7.0.zip)
+[Releases](https://github.com/Nauja/Minecraft-ColoredWool/releases)
 
 ## Configuration
 
