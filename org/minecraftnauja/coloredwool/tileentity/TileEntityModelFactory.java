@@ -9,7 +9,6 @@ import net.minecraft.tileentity.TileEntityFurnace;
 import org.minecraftnauja.coloredwool.ColoredWool;
 import org.minecraftnauja.coloredwool.Config.Factory;
 import org.minecraftnauja.coloredwool.block.BlockModelFactory;
-import org.minecraftnauja.coloredwool.block.BlockPictureFactory;
 
 /**
  * Picture factory tile entity.
@@ -38,7 +37,7 @@ public class TileEntityModelFactory extends TileEntityFactory {
 	 */
 	@Override
 	public void updateEntity() {
-		boolean flag = factoryBurnTime > 0;
+		final boolean flag = factoryBurnTime > 0;
 		boolean flag1 = false;
 
 		if (factoryBurnTime > 0) {
@@ -59,7 +58,8 @@ public class TileEntityModelFactory extends TileEntityFactory {
 					&& isActivated
 					&& imageTop != null
 					&& (canSmelt() || ColoredWool.config.modelFactory.dontRequireItems)) {
-				currentItemBurnTime = factoryBurnTime = ColoredWool.config.modelFactory.dontRequireFuel ? 200
+				currentItemBurnTime = factoryBurnTime = ColoredWool.config.modelFactory.dontRequireFuel
+						? 200
 						: TileEntityFurnace
 								.getItemBurnTime(factoryItemStacks[COAL]);
 				if (factoryBurnTime > 0) {
@@ -120,23 +120,25 @@ public class TileEntityModelFactory extends TileEntityFactory {
 	}
 
 	private boolean generateImagePart() {
-		if ((currentX < 0) || (currentX >= imageWidth))
+		if ((currentX < 0) || (currentX >= imageWidth)) {
 			return true;
-		if ((currentY < 0) || (currentY >= imageHeight))
+		}
+		if ((currentY < 0) || (currentY >= imageHeight)) {
 			return true;
+		}
 		if ((currentZ < 0) || (currentZ >= imageDepth)) {
 			return true;
 		}
-		int[] pos = nextVisiblePixel(currentX, currentY, currentZ);
+		final int[] pos = nextVisiblePixel(currentX, currentY, currentZ);
 		if (pos == null) {
 			return true;
 		}
 		currentX = pos[0];
 		currentY = pos[1];
 		currentZ = pos[2];
-		int rgb = pos[3] & 0xFFFFFF;
+		final int rgb = pos[3] & 0xFFFFFF;
 
-		int l = worldObj.getBlockMetadata(xCoord, yCoord, zCoord);
+		final int l = worldObj.getBlockMetadata(xCoord, yCoord, zCoord);
 		int x = xCoord;
 		int y = yCoord + 1;
 		int z = zCoord;
@@ -176,7 +178,7 @@ public class TileEntityModelFactory extends TileEntityFactory {
 
 		if (!blockAlreadyColored(x, y, z, rgb)) {
 			TileEntityColoredWool t = null;
-			TileEntity e = worldObj.getBlockTileEntity(x, y, z);
+			final TileEntity e = worldObj.getBlockTileEntity(x, y, z);
 			if (e != null && e instanceof TileEntityColoredWool) {
 				t = (TileEntityColoredWool) e;
 			} else {
@@ -215,27 +217,30 @@ public class TileEntityModelFactory extends TileEntityFactory {
 		return ColoredWool.config.modelFactory;
 	}
 
-	public int[] nextVisiblePixel(int x, int y, int z) {
-		if ((x < 0) || (x >= imageWidth))
+	public int[] nextVisiblePixel(final int x, final int y, final int z) {
+		if ((x < 0) || (x >= imageWidth)) {
 			return null;
-		if ((y < 0) || (y >= imageHeight))
+		}
+		if ((y < 0) || (y >= imageHeight)) {
 			return null;
+		}
 		if ((z < 0) || (z >= imageDepth)) {
 			return null;
 		}
 
-		if (z == 0)
+		if (z == 0) {
 			return nextVisiblePixelOnFront(x, y, z);
+		}
 		if (z == imageDepth - 1) {
 			return nextVisiblePixelOnBack(x, y, z);
 		}
 		return nextVisiblePixelOnSide(x, y, z);
 	}
 
-	public int[] nextVisiblePixelOnFront(int x, int y, int z) {
-		int argb = imageFront.getRGB(x, y);
+	public int[] nextVisiblePixelOnFront(int x, int y, final int z) {
+		final int argb = imageFront.getRGB(x, y);
 		if ((argb >> 24 & 0xFF) == 255) {
-			return new int[] { x, y, z, argb };
+			return new int[]{x, y, z, argb};
 		}
 		x++;
 		if (x >= imageWidth) {
@@ -248,28 +253,31 @@ public class TileEntityModelFactory extends TileEntityFactory {
 		return nextVisiblePixelOnBack(x, y, imageDepth - 1);
 	}
 
-	public int[] nextVisiblePixelOnBack(int x, int y, int z) {
-		int argb = imageBack.getRGB(imageWidth - (x + 1), y);
+	public int[] nextVisiblePixelOnBack(final int x, final int y, final int z) {
+		final int argb = imageBack.getRGB(imageWidth - (x + 1), y);
 		if ((argb >> 24 & 0xFF) == 255) {
-			return new int[] { x, y, z, argb };
+			return new int[]{x, y, z, argb};
 		}
 		return nextVisiblePixelOnFront(x, y, 0);
 	}
 
-	public int[] nextVisiblePixelOnSide(int x, int y, int z) {
-		if (x == 0)
+	public int[] nextVisiblePixelOnSide(final int x, final int y, final int z) {
+		if (x == 0) {
 			return nextVisiblePixelOnLeft(x, y, z);
-		if (x == imageWidth - 1)
+		}
+		if (x == imageWidth - 1) {
 			return nextVisiblePixelOnRight(x, y, z);
-		if (y == 0)
+		}
+		if (y == 0) {
 			return nextVisiblePixelOnTop(x, y, z);
+		}
 		if (y == imageHeight - 1) {
 			return nextVisiblePixelOnBottom(x, y, z);
 		}
 		return nextVisiblePixel(x, y, 0);
 	}
 
-	public int[] nextVisiblePixelOnTop(int x, int y, int z) {
+	public int[] nextVisiblePixelOnTop(int x, final int y, int z) {
 		int argb = imageTop.getRGB(x, imageDepth - (z + 1));
 		while ((argb >> 24 & 0xFF) < 255) {
 			z--;
@@ -282,10 +290,10 @@ public class TileEntityModelFactory extends TileEntityFactory {
 			}
 			argb = imageTop.getRGB(x, imageDepth - (z + 1));
 		}
-		return new int[] { x, y, z, argb };
+		return new int[]{x, y, z, argb};
 	}
 
-	public int[] nextVisiblePixelOnBottom(int x, int y, int z) {
+	public int[] nextVisiblePixelOnBottom(int x, final int y, int z) {
 		int argb = imageBottom.getRGB(x, z);
 		while ((argb >> 24 & 0xFF) < 255) {
 			z--;
@@ -298,10 +306,10 @@ public class TileEntityModelFactory extends TileEntityFactory {
 			}
 			argb = imageBottom.getRGB(x, z);
 		}
-		return new int[] { x, y, z, argb };
+		return new int[]{x, y, z, argb};
 	}
 
-	public int[] nextVisiblePixelOnLeft(int x, int y, int z) {
+	public int[] nextVisiblePixelOnLeft(final int x, final int y, int z) {
 		int argb = imageLeft.getRGB(imageDepth - (z + 1), y);
 		while ((argb >> 24 & 0xFF) < 255) {
 			z--;
@@ -310,10 +318,10 @@ public class TileEntityModelFactory extends TileEntityFactory {
 			}
 			argb = imageLeft.getRGB(imageDepth - (z + 1), y);
 		}
-		return new int[] { x, y, z, argb };
+		return new int[]{x, y, z, argb};
 	}
 
-	public int[] nextVisiblePixelOnRight(int x, int y, int z) {
+	public int[] nextVisiblePixelOnRight(final int x, final int y, int z) {
 		int argb = imageRight.getRGB(z, y);
 		while ((argb >> 24 & 0xFF) < 255) {
 			z--;
@@ -322,7 +330,7 @@ public class TileEntityModelFactory extends TileEntityFactory {
 			}
 			argb = imageRight.getRGB(z, y);
 		}
-		return new int[] { x, y, z, argb };
+		return new int[]{x, y, z, argb};
 	}
 
 	public void resetImage() {
@@ -342,7 +350,7 @@ public class TileEntityModelFactory extends TileEntityFactory {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void writeToNBT(NBTTagCompound par1NBTTagCompound) {
+	public void writeToNBT(final NBTTagCompound par1NBTTagCompound) {
 		super.writeToNBT(par1NBTTagCompound);
 		par1NBTTagCompound.setInteger("ImageDepth", imageDepth);
 		par1NBTTagCompound.setInteger("CurrentZ", currentZ);
@@ -352,7 +360,7 @@ public class TileEntityModelFactory extends TileEntityFactory {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void readFromNBT(NBTTagCompound par1NBTTagCompound) {
+	public void readFromNBT(final NBTTagCompound par1NBTTagCompound) {
 		super.readFromNBT(par1NBTTagCompound);
 		imageDepth = par1NBTTagCompound.getInteger("ImageDepth");
 		currentZ = par1NBTTagCompound.getInteger("CurrentZ");
@@ -362,7 +370,7 @@ public class TileEntityModelFactory extends TileEntityFactory {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void setImageToGenerate(String name) {
+	public void setImageToGenerate(final String name) {
 		if (name.equals(imageName)) {
 			return;
 		}
@@ -378,7 +386,7 @@ public class TileEntityModelFactory extends TileEntityFactory {
 			imageName = "";
 			return;
 		}
-		
+
 		sendImageToPlayers();
 		imageWidth = imageFront.getWidth();
 		imageHeight = imageFront.getHeight();
@@ -394,25 +402,31 @@ public class TileEntityModelFactory extends TileEntityFactory {
 	 *            image name.
 	 * @return if it has been loaded.
 	 */
-	private boolean loadImage(String name) {
+	private boolean loadImage(final String name) {
 		imageTop = ColoredWool.getLocalImage(name + "/top.png");
-		if (imageTop == null)
+		if (imageTop == null) {
 			return false;
+		}
 		imageBottom = ColoredWool.getLocalImage(name + "/bottom.png");
-		if (imageBottom == null)
+		if (imageBottom == null) {
 			return false;
+		}
 		imageLeft = ColoredWool.getLocalImage(name + "/left.png");
-		if (imageLeft == null)
+		if (imageLeft == null) {
 			return false;
+		}
 		imageRight = ColoredWool.getLocalImage(name + "/right.png");
-		if (imageRight == null)
+		if (imageRight == null) {
 			return false;
+		}
 		imageFront = ColoredWool.getLocalImage(name + "/front.png");
-		if (imageFront == null)
+		if (imageFront == null) {
 			return false;
+		}
 		imageBack = ColoredWool.getLocalImage(name + "/back.png");
-		if (imageBack == null)
+		if (imageBack == null) {
 			return false;
+		}
 		return true;
 	}
 

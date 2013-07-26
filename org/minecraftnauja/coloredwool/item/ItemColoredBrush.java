@@ -1,10 +1,10 @@
 package org.minecraftnauja.coloredwool.item;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 /**
  * Colored brush item.
@@ -17,7 +17,7 @@ public class ItemColoredBrush extends Item {
 	 * @param par1
 	 *            item identifier.
 	 */
-	public ItemColoredBrush(int par1) {
+	public ItemColoredBrush(final int par1) {
 		super(par1);
 		setMaxDamage(0);
 		setCreativeTab(CreativeTabs.tabTools);
@@ -28,7 +28,7 @@ public class ItemColoredBrush extends Item {
 	 */
 	@SideOnly(Side.CLIENT)
 	@Override
-	public void registerIcons(IconRegister par1IconRegister) {
+	public void registerIcons(final IconRegister par1IconRegister) {
 		itemIcon = par1IconRegister.registerIcon("ColoredWool:brush");
 	}
 

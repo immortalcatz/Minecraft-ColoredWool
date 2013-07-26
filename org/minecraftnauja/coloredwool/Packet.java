@@ -28,30 +28,32 @@ public enum Packet {
 	 */
 	ImportImage {
 
-		public void handle(Packet250CustomPayload packet, DataInputStream dis,
-				EntityPlayer player) throws IOException {
-			int x = dis.readInt(), y = dis.readInt(), z = dis.readInt();
-			String name = dis.readUTF();
-			Orientation xOrient = Orientation.values()[dis.readInt()];
-			Orientation yOrient = Orientation.values()[dis.readInt()];
+		@Override
+		public void handle(final Packet250CustomPayload packet,
+				final DataInputStream dis, final EntityPlayer player)
+				throws IOException {
+			final int x = dis.readInt(), y = dis.readInt(), z = dis.readInt();
+			final String name = dis.readUTF();
+			final Orientation xOrient = Orientation.values()[dis.readInt()];
+			final Orientation yOrient = Orientation.values()[dis.readInt()];
 			if (!xOrient.isCompatible(yOrient)) {
-				ByteArrayOutputStream bos = new ByteArrayOutputStream();
-				DataOutputStream dos = new DataOutputStream(bos);
+				final ByteArrayOutputStream bos = new ByteArrayOutputStream();
+				final DataOutputStream dos = new DataOutputStream(bos);
 				dos.writeInt(ImportImageError.ordinal());
 				dos.writeInt(ImportError.Orientation.ordinal());
-				Packet250CustomPayload p = new Packet250CustomPayload();
+				final Packet250CustomPayload p = new Packet250CustomPayload();
 				p.channel = ColoredWool.MOD_ID;
 				p.data = bos.toByteArray();
 				p.length = bos.size();
 				PacketDispatcher.sendPacketToPlayer(p, (Player) player);
 			} else {
-				BufferedImage image = ColoredWool.getLocalImage(name);
+				final BufferedImage image = ColoredWool.getLocalImage(name);
 				if (image == null) {
-					ByteArrayOutputStream bos = new ByteArrayOutputStream();
-					DataOutputStream dos = new DataOutputStream(bos);
+					final ByteArrayOutputStream bos = new ByteArrayOutputStream();
+					final DataOutputStream dos = new DataOutputStream(bos);
 					dos.writeInt(ImportImageError.ordinal());
 					dos.writeInt(ImportError.ImageNotFound.ordinal());
-					Packet250CustomPayload p = new Packet250CustomPayload();
+					final Packet250CustomPayload p = new Packet250CustomPayload();
 					p.channel = ColoredWool.MOD_ID;
 					p.data = bos.toByteArray();
 					p.length = bos.size();
@@ -70,9 +72,11 @@ public enum Packet {
 	 */
 	ImportImageError {
 
-		public void handle(Packet250CustomPayload packet, DataInputStream dis,
-				EntityPlayer player) throws IOException {
-			ImportError e = ImportError.values()[dis.readInt()];
+		@Override
+		public void handle(final Packet250CustomPayload packet,
+				final DataInputStream dis, final EntityPlayer player)
+				throws IOException {
+			final ImportError e = ImportError.values()[dis.readInt()];
 			ModLoader.openGUI(player,
 					new GuiColoredWoolImportErr(e.getMessage()));
 		}
@@ -84,12 +88,14 @@ public enum Packet {
 	 */
 	UpdateColoredWoolServer {
 
-		public void handle(Packet250CustomPayload packet, DataInputStream dis,
-				EntityPlayer player) throws IOException {
-			TileEntity e = player.worldObj.getBlockTileEntity(dis.readInt(),
-					dis.readInt(), dis.readInt());
+		@Override
+		public void handle(final Packet250CustomPayload packet,
+				final DataInputStream dis, final EntityPlayer player)
+				throws IOException {
+			final TileEntity e = player.worldObj.getBlockTileEntity(
+					dis.readInt(), dis.readInt(), dis.readInt());
 			if (e != null && e instanceof TileEntityColoredWool) {
-				TileEntityColoredWool w = (TileEntityColoredWool) e;
+				final TileEntityColoredWool w = (TileEntityColoredWool) e;
 				w.color = (dis.readInt() & 0xFFFFFF);
 				w.sendColorToPlayers();
 			}
@@ -102,12 +108,14 @@ public enum Packet {
 	 */
 	UpdateColoredWoolClient {
 
-		public void handle(Packet250CustomPayload packet, DataInputStream dis,
-				EntityPlayer player) throws IOException {
-			TileEntity e = player.worldObj.getBlockTileEntity(dis.readInt(),
-					dis.readInt(), dis.readInt());
+		@Override
+		public void handle(final Packet250CustomPayload packet,
+				final DataInputStream dis, final EntityPlayer player)
+				throws IOException {
+			final TileEntity e = player.worldObj.getBlockTileEntity(
+					dis.readInt(), dis.readInt(), dis.readInt());
 			if (e != null && e instanceof TileEntityColoredWool) {
-				TileEntityColoredWool w = (TileEntityColoredWool) e;
+				final TileEntityColoredWool w = (TileEntityColoredWool) e;
 				w.color = (dis.readInt() & 0xFFFFFF);
 				player.worldObj.markBlockForRenderUpdate(e.xCoord, e.yCoord,
 						e.zCoord);
@@ -121,12 +129,14 @@ public enum Packet {
 	 */
 	UpdateFactoryImageServer {
 
-		public void handle(Packet250CustomPayload packet, DataInputStream dis,
-				EntityPlayer player) throws IOException {
-			TileEntity e = player.worldObj.getBlockTileEntity(dis.readInt(),
-					dis.readInt(), dis.readInt());
+		@Override
+		public void handle(final Packet250CustomPayload packet,
+				final DataInputStream dis, final EntityPlayer player)
+				throws IOException {
+			final TileEntity e = player.worldObj.getBlockTileEntity(
+					dis.readInt(), dis.readInt(), dis.readInt());
 			if (e != null && e instanceof TileEntityFactory) {
-				TileEntityFactory w = (TileEntityFactory) e;
+				final TileEntityFactory w = (TileEntityFactory) e;
 				w.setImageToGenerate(dis.readUTF());
 			}
 		}
@@ -138,12 +148,14 @@ public enum Packet {
 	 */
 	UpdateFactoryImageClient {
 
-		public void handle(Packet250CustomPayload packet, DataInputStream dis,
-				EntityPlayer player) throws IOException {
-			TileEntity e = player.worldObj.getBlockTileEntity(dis.readInt(),
-					dis.readInt(), dis.readInt());
+		@Override
+		public void handle(final Packet250CustomPayload packet,
+				final DataInputStream dis, final EntityPlayer player)
+				throws IOException {
+			final TileEntity e = player.worldObj.getBlockTileEntity(
+					dis.readInt(), dis.readInt(), dis.readInt());
 			if (e != null && e instanceof TileEntityFactory) {
-				TileEntityFactory w = (TileEntityFactory) e;
+				final TileEntityFactory w = (TileEntityFactory) e;
 				w.setImageName(dis.readUTF());
 			}
 		}

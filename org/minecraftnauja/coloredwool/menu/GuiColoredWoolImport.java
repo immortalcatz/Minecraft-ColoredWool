@@ -114,7 +114,8 @@ public class GuiColoredWoolImport extends GuiScreen {
 	 * @param z
 	 *            z-coordinate.
 	 */
-	public GuiColoredWoolImport(GuiColoredWoolMenu menu, int x, int y, int z) {
+	public GuiColoredWoolImport(final GuiColoredWoolMenu menu, final int x,
+			final int y, final int z) {
 		super();
 		this.menu = menu;
 		this.x = x;
@@ -158,7 +159,7 @@ public class GuiColoredWoolImport extends GuiScreen {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void drawScreen(int par1, int par2, float par3) {
+	public void drawScreen(final int par1, final int par2, final float par3) {
 		drawDefaultBackground();
 		drawCenteredString(fontRenderer, "Type the image file name to import",
 				width / 2, 40, 16777215);
@@ -174,24 +175,24 @@ public class GuiColoredWoolImport extends GuiScreen {
 	 * {@inheritDoc}
 	 */
 	@Override
-	protected void actionPerformed(GuiButton par1GuiButton) {
+	protected void actionPerformed(final GuiButton par1GuiButton) {
 		if (par1GuiButton.enabled) {
 			switch (par1GuiButton.id) {
-			case START:
-				sendPacketToServer();
-				mc.displayGuiScreen(null);
-				break;
-			case CANCEL:
-				Keyboard.enableRepeatEvents(false);
-				ModLoader.openGUI(menu.player, menu);
-				break;
-			case X_ORIENTATION:
-				xOrient = xOrient.getNext();
-				xOrientButton.displayString = xOrient.toString();
-				break;
-			case Y_ORIENTATION:
-				yOrient = yOrient.getNext();
-				yOrientButton.displayString = yOrient.toString();
+				case START :
+					sendPacketToServer();
+					mc.displayGuiScreen(null);
+					break;
+				case CANCEL :
+					Keyboard.enableRepeatEvents(false);
+					ModLoader.openGUI(menu.player, menu);
+					break;
+				case X_ORIENTATION :
+					xOrient = xOrient.getNext();
+					xOrientButton.displayString = xOrient.toString();
+					break;
+				case Y_ORIENTATION :
+					yOrient = yOrient.getNext();
+					yOrientButton.displayString = yOrient.toString();
 			}
 		}
 	}
@@ -201,8 +202,8 @@ public class GuiColoredWoolImport extends GuiScreen {
 	 */
 	private void sendPacketToServer() {
 		try {
-			ByteArrayOutputStream bos = new ByteArrayOutputStream();
-			DataOutputStream dos = new DataOutputStream(bos);
+			final ByteArrayOutputStream bos = new ByteArrayOutputStream();
+			final DataOutputStream dos = new DataOutputStream(bos);
 			dos.writeInt(Packet.ImportImage.ordinal());
 			dos.writeInt(x);
 			dos.writeInt(y);
@@ -210,12 +211,12 @@ public class GuiColoredWoolImport extends GuiScreen {
 			dos.writeUTF(fileInput.getText());
 			dos.writeInt(xOrient.ordinal());
 			dos.writeInt(yOrient.ordinal());
-			Packet250CustomPayload p = new Packet250CustomPayload();
+			final Packet250CustomPayload p = new Packet250CustomPayload();
 			p.channel = ColoredWool.MOD_ID;
 			p.data = bos.toByteArray();
 			p.length = bos.size();
 			PacketDispatcher.sendPacketToServer(p);
-		} catch (Exception e) {
+		} catch (final Exception e) {
 			FMLLog.log(ColoredWool.MOD_ID, Level.SEVERE, e,
 					"Could not send packet");
 		}
@@ -225,7 +226,7 @@ public class GuiColoredWoolImport extends GuiScreen {
 	 * {@inheritDoc}
 	 */
 	@Override
-	protected void keyTyped(char par1, int par2) {
+	protected void keyTyped(final char par1, final int par2) {
 		if (fileInput.isFocused()) {
 			fileInput.textboxKeyTyped(par1, par2);
 		}

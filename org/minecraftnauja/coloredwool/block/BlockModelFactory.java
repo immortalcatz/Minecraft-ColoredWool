@@ -25,7 +25,7 @@ public class BlockModelFactory extends BlockFactory {
 	 * @param state
 	 *            its state.
 	 */
-	public BlockModelFactory(int par1, FactoryState state) {
+	public BlockModelFactory(final int par1, final FactoryState state) {
 		super(par1, state);
 	}
 
@@ -66,41 +66,44 @@ public class BlockModelFactory extends BlockFactory {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public TileEntity createNewTileEntity(World world) {
+	public TileEntity createNewTileEntity(final World world) {
 		return new TileEntityModelFactory();
 	}
 
-	public static void updateFactoryBlockState(boolean burn, World par1World,
-			int x, int y, int z) {
-		TileEntity entity = par1World.getBlockTileEntity(x, y, z);
-		if (entity == null)
+	public static void updateFactoryBlockState(final boolean burn,
+			final World par1World, final int x, final int y, final int z) {
+		final TileEntity entity = par1World.getBlockTileEntity(x, y, z);
+		if (entity == null) {
 			return;
+		}
 		if (!(entity instanceof TileEntityModelFactory)) {
 			return;
 		}
-		TileEntityModelFactory factory = (TileEntityModelFactory) entity;
+		final TileEntityModelFactory factory = (TileEntityModelFactory) entity;
 		updateFactoryBlockState(factory.isActivated, burn, par1World, x, y, z);
 	}
 
-	public static void updateFactoryBlockState(boolean active, boolean burn,
-			World par1World, int x, int y, int z) {
-		int l = par1World.getBlockMetadata(x, y, z);
-		TileEntity entity = par1World.getBlockTileEntity(x, y, z);
+	public static void updateFactoryBlockState(final boolean active,
+			final boolean burn, final World par1World, final int x,
+			final int y, final int z) {
+		final int l = par1World.getBlockMetadata(x, y, z);
+		final TileEntity entity = par1World.getBlockTileEntity(x, y, z);
 		keepFactoryInventory = true;
 		if (active) {
-			if (burn)
+			if (burn) {
 				par1World.setBlock(x, y, z,
 						ColoredWool.modelFactoryBurning.blockID);
-			else
+			} else {
 				par1World.setBlock(x, y, z,
 						ColoredWool.modelFactoryActive.blockID);
+			}
 		} else {
 			par1World.setBlock(x, y, z, ColoredWool.modelFactoryIdle.blockID);
 		}
 		keepFactoryInventory = false;
 		par1World.setBlockMetadataWithNotify(x, y, z, l, 2);
 		if (entity != null && entity instanceof TileEntityModelFactory) {
-			TileEntityModelFactory factory = (TileEntityModelFactory) entity;
+			final TileEntityModelFactory factory = (TileEntityModelFactory) entity;
 			factory.isActivated = active;
 			factory.isBurning = burn;
 			factory.validate();
@@ -112,8 +115,8 @@ public class BlockModelFactory extends BlockFactory {
 	 * {@inheritDoc}
 	 */
 	@Override
-	protected void onClicked(World world, int x, int y, int z,
-			EntityPlayer player) {
+	protected void onClicked(final World world, final int x, final int y,
+			final int z, final EntityPlayer player) {
 		updateFactoryBlockState(state == FactoryState.Idle,
 				state == FactoryState.Burning, world, x, y, z);
 	}
@@ -122,7 +125,8 @@ public class BlockModelFactory extends BlockFactory {
 	 * {@inheritDoc}
 	 */
 	@Override
-	protected void openMenuImage(EntityPlayer player, TileEntityFactory entity) {
+	protected void openMenuImage(final EntityPlayer player,
+			final TileEntityFactory entity) {
 		ColoredWool.proxy.openModelFactoryMenu(player,
 				(TileEntityModelFactory) entity);
 	}

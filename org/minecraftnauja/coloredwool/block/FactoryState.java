@@ -10,10 +10,12 @@ public enum FactoryState {
 	 */
 	Burning {
 
+		@Override
 		public String getSuffix() {
 			return "Burning";
 		}
 
+		@Override
 		public String getActiveSuffix() {
 			return Active.getActiveSuffix();
 		}
@@ -25,6 +27,7 @@ public enum FactoryState {
 	 */
 	Active {
 
+		@Override
 		public String getSuffix() {
 			return "Active";
 		}
@@ -36,6 +39,7 @@ public enum FactoryState {
 	 */
 	Idle {
 
+		@Override
 		public String getSuffix() {
 			return "Idle";
 		}

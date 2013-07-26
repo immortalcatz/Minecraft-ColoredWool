@@ -4,26 +4,26 @@ import java.awt.Color;
 
 public final class ColorInformations {
 
-	private String hex;
-	private int rgb;
-	private Color color;
+	private final String hex;
+	private final int rgb;
+	private final Color color;
 
-	public ColorInformations(String hex, int rgb, Color color) {
+	public ColorInformations(final String hex, final int rgb, final Color color) {
 		this.hex = hex;
 		this.rgb = rgb;
 		this.color = color;
 	}
 
 	public String getHex() {
-		return this.hex;
+		return hex;
 	}
 
 	public int getRGB() {
-		return this.rgb;
+		return rgb;
 	}
 
 	public Color getColor() {
-		return this.color;
+		return color;
 	}
 
 }
