@@ -321,6 +321,11 @@ public final class Config {
 		public boolean instantCook = true;
 
 		/**
+		 * Factories are protected.
+		 */
+		public boolean restricted = false;
+
+		/**
 		 * Loads the configuration.
 		 * 
 		 * @param config
@@ -339,8 +344,9 @@ public final class Config {
 					dontRequireFuel).getBoolean(dontRequireFuel);
 			instantCook = config.get(category, "InstantCook", instantCook)
 					.getBoolean(instantCook);
+			restricted = config.get(category, "Restricted", restricted)
+					.getBoolean(restricted);
 		}
-
 		/**
 		 * {@inheritDoc}
 		 */
@@ -350,7 +356,7 @@ public final class Config {
 					+ ", dontEraseTheseIds=" + dontEraseTheseIds
 					+ ", dontRequireItems=" + dontRequireItems
 					+ ", dontRequireFuel=" + dontRequireFuel + ", instantCook="
-					+ instantCook + "]";
+					+ instantCook + ", restricted=" + restricted + "]";
 		}
 
 	}

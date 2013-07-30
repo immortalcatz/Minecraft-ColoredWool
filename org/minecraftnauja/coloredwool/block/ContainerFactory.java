@@ -59,11 +59,11 @@ public class ContainerFactory extends Container {
 
 		for (int y = 0; y < 3; y++) {
 			for (int x = 0; x < 2; x++) {
-				addSlotToContainer(new Slot(factory, x + y * 2, 8 + x * 18,
-						17 + y * 18));
+				addSlotToContainer(new SlotFactory(factory, x + y * 2,
+						8 + x * 18, 17 + y * 18));
 			}
 		}
-		addSlotToContainer(new Slot(factory, 6, 80, 35));
+		addSlotToContainer(new SlotFactory(factory, 6, 80, 35));
 
 		for (int i = 0; i < 3; i++) {
 			for (int k = 0; k < 9; k++) {

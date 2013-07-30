@@ -20,6 +20,14 @@ public class TileEntityPictureFactory extends TileEntityFactory {
 	 * {@inheritDoc}
 	 */
 	@Override
+	public boolean isRestricted() {
+		return ColoredWool.config.pictureFactory.restricted;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
 	public void updateEntity() {
 		final boolean flag = factoryBurnTime > 0;
 		boolean flag1 = false;

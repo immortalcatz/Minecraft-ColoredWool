@@ -25,11 +25,11 @@ public class TileEntityModelFactory extends TileEntityFactory {
 	protected int currentZ;
 
 	/**
-	 * Default constructor.
+	 * {@inheritDoc}
 	 */
-	public TileEntityModelFactory() {
-		super();
-		imageName = "";
+	@Override
+	public boolean isRestricted() {
+		return ColoredWool.config.modelFactory.restricted;
 	}
 
 	/**

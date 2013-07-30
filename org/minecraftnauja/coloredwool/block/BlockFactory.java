@@ -499,9 +499,11 @@ public abstract class BlockFactory extends BlockContainer {
 			l += 5;
 		}
 		par1World.setBlockMetadataWithNotify(par2, par3, par4, l, 2);
+		final TileEntityFactory e = (TileEntityFactory) par1World
+				.getBlockTileEntity(par2, par3, par4);
+		e.setOwner(par5EntityLiving.getEntityName());
 		if (par6ItemStack.hasDisplayName()) {
-			((TileEntityFactory) par1World.getBlockTileEntity(par2, par3, par4))
-					.setInvName(par6ItemStack.getDisplayName());
+			e.setInvName(par6ItemStack.getDisplayName());
 		}
 	}
 

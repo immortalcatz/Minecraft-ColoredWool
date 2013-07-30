@@ -82,6 +82,7 @@ public abstract class TileEntityFactory extends TileEntity
 
 	protected String invName;
 	protected String imageName = "";
+	protected String owner = "";
 	public int factoryBurnTime;
 	public int factoryCookTime;
 	public int currentItemBurnTime;
@@ -106,6 +107,32 @@ public abstract class TileEntityFactory extends TileEntity
 	public int getSizeInventory() {
 		return factoryItemStacks.length;
 	}
+
+	/**
+	 * Get the owner.
+	 * 
+	 * @return owner.
+	 */
+	public String getOwner() {
+		return owner;
+	}
+
+	/**
+	 * Set the owner.
+	 * 
+	 * @param owner
+	 *            new value.
+	 */
+	public void setOwner(final String owner) {
+		this.owner = owner;
+	}
+
+	/**
+	 * Indicate if the factory is protected.
+	 * 
+	 * @return if the factory is protected.
+	 */
+	public abstract boolean isRestricted();
 
 	/**
 	 * {@inheritDoc}
@@ -568,6 +595,7 @@ public abstract class TileEntityFactory extends TileEntity
 	@Override
 	public void writeToNBT(final NBTTagCompound par1NBTTagCompound) {
 		super.writeToNBT(par1NBTTagCompound);
+		par1NBTTagCompound.setString("Owner", owner);
 		par1NBTTagCompound.setString("ImageName", imageName);
 		par1NBTTagCompound.setInteger("ImageWidth", imageWidth);
 		par1NBTTagCompound.setInteger("ImageHeight", imageHeight);
@@ -601,6 +629,11 @@ public abstract class TileEntityFactory extends TileEntity
 	@Override
 	public void readFromNBT(final NBTTagCompound par1NBTTagCompound) {
 		super.readFromNBT(par1NBTTagCompound);
+		if (par1NBTTagCompound.hasKey("Owner")) {
+			owner = par1NBTTagCompound.getString("Owner");
+		} else {
+			owner = "";
+		}
 		imageName = par1NBTTagCompound.getString("ImageName");
 		imageWidth = par1NBTTagCompound.getInteger("ImageWidth");
 		imageHeight = par1NBTTagCompound.getInteger("ImageHeight");
