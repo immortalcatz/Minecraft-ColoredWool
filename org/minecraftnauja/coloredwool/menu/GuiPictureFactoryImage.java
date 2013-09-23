@@ -21,7 +21,7 @@ public class GuiPictureFactoryImage extends GuiScreen {
 	/**
 	 * Tile entity.
 	 */
-	private final TileEntityPictureFactory entity;
+	private TileEntityPictureFactory entity;
 
 	/**
 	 * Name text field.
@@ -39,12 +39,17 @@ public class GuiPictureFactoryImage extends GuiScreen {
 	private String screenTitle;
 
 	/**
+	 * Update counter.
+	 */
+	private int updateCounter;
+
+	/**
 	 * Initializing constructor.
 	 * 
 	 * @param entity
 	 *            tile entity.
 	 */
-	public GuiPictureFactoryImage(final TileEntityPictureFactory entity) {
+	public GuiPictureFactoryImage(TileEntityPictureFactory entity) {
 		super();
 		this.entity = entity;
 	}
@@ -58,7 +63,7 @@ public class GuiPictureFactoryImage extends GuiScreen {
 		screenTitle = "Choose image to generate";
 		nameButton = new GuiTextField(fontRenderer, width / 2 - 100, 60, 200,
 				20);
-		final String name = entity.getImageName();
+		String name = entity.getImageName();
 		nameButton.setText(name == null ? "" : name);
 		nameButton.setEnabled(true);
 		nameButton.setFocused(true);
@@ -74,7 +79,7 @@ public class GuiPictureFactoryImage extends GuiScreen {
 	 * Closes the gui.
 	 */
 	public void close() {
-		final String name = nameButton.getText();
+		String name = nameButton.getText();
 		entity.sendImageToServer(name);
 		mc.displayGuiScreen(null);
 	}
@@ -85,18 +90,19 @@ public class GuiPictureFactoryImage extends GuiScreen {
 	@Override
 	public void updateScreen() {
 		super.updateScreen();
+		updateCounter += 1;
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	protected void actionPerformed(final GuiButton par1GuiButton) {
+	protected void actionPerformed(GuiButton par1GuiButton) {
 		if (par1GuiButton.enabled) {
 			switch (par1GuiButton.id) {
-				case DONE :
-					close();
-					break;
+			case DONE:
+				close();
+				break;
 			}
 		}
 	}
@@ -105,7 +111,7 @@ public class GuiPictureFactoryImage extends GuiScreen {
 	 * {@inheritDoc}
 	 */
 	@Override
-	protected void keyTyped(final char par1, final int par2) {
+	protected void keyTyped(char par1, int par2) {
 		nameButton.textboxKeyTyped(par1, par2);
 		checkName();
 		if (par1 == '\r') {
@@ -119,8 +125,8 @@ public class GuiPictureFactoryImage extends GuiScreen {
 	 * @return if it is valid.
 	 */
 	public boolean checkName() {
-		final String s = nameButton.getText();
-		final boolean flag = s.length() > 0;
+		String s = nameButton.getText();
+		boolean flag = s.length() > 0;
 		doneButton.enabled = flag;
 		return flag;
 	}
@@ -129,7 +135,7 @@ public class GuiPictureFactoryImage extends GuiScreen {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void drawScreen(final int par1, final int par2, final float par3) {
+	public void drawScreen(int par1, int par2, float par3) {
 		drawDefaultBackground();
 		drawCenteredString(fontRenderer, screenTitle, width / 2, 40, 16777215);
 		nameButton.drawTextBox();

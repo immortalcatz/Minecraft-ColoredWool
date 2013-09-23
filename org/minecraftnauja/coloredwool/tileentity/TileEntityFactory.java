@@ -30,9 +30,8 @@ import cpw.mods.fml.relauncher.SideOnly;
 /**
  * Factory tile entity.
  */
-public abstract class TileEntityFactory extends TileEntity
-		implements
-			ISidedInventory {
+public abstract class TileEntityFactory extends TileEntity implements
+		ISidedInventory {
 
 	/**
 	 * Index of red rose.
@@ -72,17 +71,16 @@ public abstract class TileEntityFactory extends TileEntity
 	/**
 	 * Slots for items.
 	 */
-	private static final int[] SLOTS_ITEMS = new int[]{RED_ROSE, CACTUS_GREEN,
-			LAPIS_LAZULI, COLORED_DYE, WOOL, COLORED_WOOL};
+	private static final int[] SLOTS_ITEMS = new int[] { RED_ROSE,
+			CACTUS_GREEN, LAPIS_LAZULI, COLORED_DYE, WOOL, COLORED_WOOL };
 
 	/**
 	 * Slots for coal.
 	 */
-	private static final int[] SLOTS_COAL = new int[]{COAL};
+	private static final int[] SLOTS_COAL = new int[] { COAL };
 
 	protected String invName;
 	protected String imageName = "";
-	protected String owner = "";
 	public int factoryBurnTime;
 	public int factoryCookTime;
 	public int currentItemBurnTime;
@@ -109,36 +107,10 @@ public abstract class TileEntityFactory extends TileEntity
 	}
 
 	/**
-	 * Get the owner.
-	 * 
-	 * @return owner.
-	 */
-	public String getOwner() {
-		return owner;
-	}
-
-	/**
-	 * Set the owner.
-	 * 
-	 * @param owner
-	 *            new value.
-	 */
-	public void setOwner(final String owner) {
-		this.owner = owner;
-	}
-
-	/**
-	 * Indicate if the factory is protected.
-	 * 
-	 * @return if the factory is protected.
-	 */
-	public abstract boolean isRestricted();
-
-	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public ItemStack getStackInSlot(final int par1) {
+	public ItemStack getStackInSlot(int par1) {
 		return factoryItemStacks[par1];
 	}
 
@@ -146,7 +118,7 @@ public abstract class TileEntityFactory extends TileEntity
 	 * {@inheritDoc}
 	 */
 	@Override
-	public ItemStack decrStackSize(final int par1, final int par2) {
+	public ItemStack decrStackSize(int par1, int par2) {
 		if (factoryItemStacks[par1] != null) {
 			ItemStack itemstack;
 			if (factoryItemStacks[par1].stackSize <= par2) {
@@ -169,9 +141,9 @@ public abstract class TileEntityFactory extends TileEntity
 	 * {@inheritDoc}
 	 */
 	@Override
-	public ItemStack getStackInSlotOnClosing(final int par1) {
+	public ItemStack getStackInSlotOnClosing(int par1) {
 		if (factoryItemStacks[par1] != null) {
-			final ItemStack itemstack = factoryItemStacks[par1];
+			ItemStack itemstack = factoryItemStacks[par1];
 			factoryItemStacks[par1] = null;
 			return itemstack;
 		} else {
@@ -183,8 +155,7 @@ public abstract class TileEntityFactory extends TileEntity
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void setInventorySlotContents(final int par1,
-			final ItemStack par2ItemStack) {
+	public void setInventorySlotContents(int par1, ItemStack par2ItemStack) {
 		factoryItemStacks[par1] = par2ItemStack;
 		if (par2ItemStack != null
 				&& par2ItemStack.stackSize > getInventoryStackLimit()) {
@@ -214,7 +185,7 @@ public abstract class TileEntityFactory extends TileEntity
 	 * @param invName
 	 *            new name.
 	 */
-	public void setInvName(final String invName) {
+	public void setInvName(String invName) {
 		this.invName = invName;
 	}
 
@@ -232,11 +203,10 @@ public abstract class TileEntityFactory extends TileEntity
 	 * @return the cooking progression.
 	 */
 	@SideOnly(Side.CLIENT)
-	public int getCookProgressScaled(final int i) {
-		final int p = factoryCookTime * i / 200;
-		if (p < 0) {
+	public int getCookProgressScaled(int i) {
+		int p = factoryCookTime * i / 200;
+		if (p < 0)
 			return 0;
-		}
 		if (p > 200 * i) {
 			return 200 * i;
 		}
@@ -249,7 +219,7 @@ public abstract class TileEntityFactory extends TileEntity
 	 * @return the remaining burn time.
 	 */
 	@SideOnly(Side.CLIENT)
-	public int getBurnTimeRemainingScaled(final int i) {
+	public int getBurnTimeRemainingScaled(int i) {
 		if (currentItemBurnTime == 0) {
 			currentItemBurnTime = 200;
 		}
@@ -273,12 +243,12 @@ public abstract class TileEntityFactory extends TileEntity
 	}
 
 	@SideOnly(Side.CLIENT)
-	public int getImageProgressWidth(final int i) {
+	public int getImageProgressWidth(int i) {
 		return (int) ((progressWidth * i) / 100.0F);
 	}
 
 	@SideOnly(Side.CLIENT)
-	public int getImageProgressHeight(final int i) {
+	public int getImageProgressHeight(int i) {
 		return (int) ((progressHeight * i) / 100.0F);
 	}
 
@@ -403,7 +373,7 @@ public abstract class TileEntityFactory extends TileEntity
 	 * @param index
 	 *            index in the furnace.
 	 */
-	private void useItem(final int index) {
+	private void useItem(int index) {
 		factoryItemStacks[index].stackSize--;
 		if (factoryItemStacks[index].stackSize <= 0) {
 			factoryItemStacks[index] = null;
@@ -414,11 +384,11 @@ public abstract class TileEntityFactory extends TileEntity
 	 * {@inheritDoc}
 	 */
 	@Override
-	public boolean isUseableByPlayer(final EntityPlayer par1EntityPlayer) {
-		return worldObj.getBlockTileEntity(xCoord, yCoord, zCoord) != this
-				? false
-				: par1EntityPlayer.getDistanceSq(xCoord + 0.5D, yCoord + 0.5D,
-						zCoord + 0.5D) <= 64.0D;
+	public boolean isUseableByPlayer(EntityPlayer par1EntityPlayer) {
+		return this.worldObj.getBlockTileEntity(this.xCoord, this.yCoord,
+				this.zCoord) != this ? false : par1EntityPlayer.getDistanceSq(
+				(double) this.xCoord + 0.5D, (double) this.yCoord + 0.5D,
+				(double) this.zCoord + 0.5D) <= 64.0D;
 	}
 
 	/**
@@ -439,8 +409,7 @@ public abstract class TileEntityFactory extends TileEntity
 	 * {@inheritDoc}
 	 */
 	@Override
-	public boolean isItemValidForSlot(final int par1,
-			final ItemStack par2ItemStack) {
+	public boolean isItemValidForSlot(int par1, ItemStack par2ItemStack) {
 		if (par1 == COAL) {
 			return TileEntityFurnace.isItemFuel(par2ItemStack);
 		} else {
@@ -452,7 +421,7 @@ public abstract class TileEntityFactory extends TileEntity
 	 * {@inheritDoc}
 	 */
 	@Override
-	public int[] getAccessibleSlotsFromSide(final int par1) {
+	public int[] getAccessibleSlotsFromSide(int par1) {
 		return par1 == 0 ? SLOTS_COAL : (par1 == 1 ? SLOTS_ITEMS : SLOTS_COAL);
 	}
 
@@ -460,17 +429,15 @@ public abstract class TileEntityFactory extends TileEntity
 	 * {@inheritDoc}
 	 */
 	@Override
-	public boolean canInsertItem(final int par1, final ItemStack par2ItemStack,
-			final int par3) {
-		return isItemValidForSlot(par1, par2ItemStack);
+	public boolean canInsertItem(int par1, ItemStack par2ItemStack, int par3) {
+		return this.isItemValidForSlot(par1, par2ItemStack);
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public boolean canExtractItem(final int par1,
-			final ItemStack par2ItemStack, final int par3) {
+	public boolean canExtractItem(int par1, ItemStack par2ItemStack, int par3) {
 		return false;
 	}
 
@@ -487,22 +454,21 @@ public abstract class TileEntityFactory extends TileEntity
 	 *            wanted color.
 	 * @return if it is already colored.
 	 */
-	public boolean blockAlreadyColored(final int x, final int y, final int z,
-			final int color) {
-		final int id = worldObj.getBlockId(x, y, z);
+	public boolean blockAlreadyColored(int x, int y, int z, int color) {
+		int id = worldObj.getBlockId(x, y, z);
 		if ((id > 0)
 				&& ((getConfig().dontEraseAnything) || (getConfig().dontEraseTheseIds
 						.contains(id + ";")))) {
 			return true;
 		}
-		final TileEntity tmp = worldObj.getBlockTileEntity(x, y, z);
+		TileEntity tmp = worldObj.getBlockTileEntity(x, y, z);
 		if (tmp == null) {
 			return false;
 		}
 		if (!(tmp instanceof TileEntityColoredWool)) {
 			return false;
 		}
-		final TileEntityColoredWool tmp2 = (TileEntityColoredWool) tmp;
+		TileEntityColoredWool tmp2 = (TileEntityColoredWool) tmp;
 		return tmp2.color == color;
 	}
 
@@ -528,7 +494,7 @@ public abstract class TileEntityFactory extends TileEntity
 	 * @param name
 	 *            new name.
 	 */
-	public void setImageName(final String name) {
+	public void setImageName(String name) {
 		imageName = name;
 	}
 
@@ -545,19 +511,19 @@ public abstract class TileEntityFactory extends TileEntity
 	 */
 	public void sendImageToPlayers() {
 		try {
-			final ByteArrayOutputStream bos = new ByteArrayOutputStream();
-			final DataOutputStream dos = new DataOutputStream(bos);
+			ByteArrayOutputStream bos = new ByteArrayOutputStream();
+			DataOutputStream dos = new DataOutputStream(bos);
 			dos.writeInt(Packet.UpdateFactoryImageClient.ordinal());
 			dos.writeInt(xCoord);
 			dos.writeInt(yCoord);
 			dos.writeInt(zCoord);
 			dos.writeUTF(imageName);
-			final Packet250CustomPayload p = new Packet250CustomPayload();
+			Packet250CustomPayload p = new Packet250CustomPayload();
 			p.channel = ColoredWool.MOD_ID;
 			p.data = bos.toByteArray();
 			p.length = bos.size();
 			PacketDispatcher.sendPacketToAllPlayers(p);
-		} catch (final IOException e) {
+		} catch (IOException e) {
 			FMLLog.log(ColoredWool.MOD_ID, Level.SEVERE, e,
 					"Could not send packet");
 		}
@@ -569,21 +535,21 @@ public abstract class TileEntityFactory extends TileEntity
 	 * @param name
 	 *            image name.
 	 */
-	public void sendImageToServer(final String name) {
+	public void sendImageToServer(String name) {
 		try {
-			final ByteArrayOutputStream bos = new ByteArrayOutputStream();
-			final DataOutputStream dos = new DataOutputStream(bos);
+			ByteArrayOutputStream bos = new ByteArrayOutputStream();
+			DataOutputStream dos = new DataOutputStream(bos);
 			dos.writeInt(Packet.UpdateFactoryImageServer.ordinal());
 			dos.writeInt(xCoord);
 			dos.writeInt(yCoord);
 			dos.writeInt(zCoord);
 			dos.writeUTF(name);
-			final Packet250CustomPayload p = new Packet250CustomPayload();
+			Packet250CustomPayload p = new Packet250CustomPayload();
 			p.channel = ColoredWool.MOD_ID;
 			p.data = bos.toByteArray();
 			p.length = bos.size();
 			PacketDispatcher.sendPacketToServer(p);
-		} catch (final IOException e) {
+		} catch (IOException e) {
 			FMLLog.log(ColoredWool.MOD_ID, Level.SEVERE, e,
 					"Could not send packet");
 		}
@@ -593,9 +559,8 @@ public abstract class TileEntityFactory extends TileEntity
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void writeToNBT(final NBTTagCompound par1NBTTagCompound) {
+	public void writeToNBT(NBTTagCompound par1NBTTagCompound) {
 		super.writeToNBT(par1NBTTagCompound);
-		par1NBTTagCompound.setString("Owner", owner);
 		par1NBTTagCompound.setString("ImageName", imageName);
 		par1NBTTagCompound.setInteger("ImageWidth", imageWidth);
 		par1NBTTagCompound.setInteger("ImageHeight", imageHeight);
@@ -608,17 +573,17 @@ public abstract class TileEntityFactory extends TileEntity
 		par1NBTTagCompound.setShort("BurnTime", (short) factoryBurnTime);
 		par1NBTTagCompound.setShort("CookTime", (short) factoryCookTime);
 
-		final NBTTagList nbttaglist = new NBTTagList();
+		NBTTagList nbttaglist = new NBTTagList();
 		for (int i = 0; i < factoryItemStacks.length; i++) {
 			if (factoryItemStacks[i] != null) {
-				final NBTTagCompound nbttagcompound1 = new NBTTagCompound();
+				NBTTagCompound nbttagcompound1 = new NBTTagCompound();
 				nbttagcompound1.setByte("Slot", (byte) i);
 				factoryItemStacks[i].writeToNBT(nbttagcompound1);
 				nbttaglist.appendTag(nbttagcompound1);
 			}
 		}
 		par1NBTTagCompound.setTag("Items", nbttaglist);
-		if (isInvNameLocalized()) {
+		if (this.isInvNameLocalized()) {
 			par1NBTTagCompound.setString("CustomName", invName);
 		}
 	}
@@ -627,13 +592,8 @@ public abstract class TileEntityFactory extends TileEntity
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void readFromNBT(final NBTTagCompound par1NBTTagCompound) {
+	public void readFromNBT(NBTTagCompound par1NBTTagCompound) {
 		super.readFromNBT(par1NBTTagCompound);
-		if (par1NBTTagCompound.hasKey("Owner")) {
-			owner = par1NBTTagCompound.getString("Owner");
-		} else {
-			owner = "";
-		}
 		imageName = par1NBTTagCompound.getString("ImageName");
 		imageWidth = par1NBTTagCompound.getInteger("ImageWidth");
 		imageHeight = par1NBTTagCompound.getInteger("ImageHeight");
@@ -646,13 +606,13 @@ public abstract class TileEntityFactory extends TileEntity
 		factoryBurnTime = par1NBTTagCompound.getShort("BurnTime");
 		factoryCookTime = par1NBTTagCompound.getShort("CookTime");
 
-		final NBTTagList nbttaglist = par1NBTTagCompound.getTagList("Items");
+		NBTTagList nbttaglist = par1NBTTagCompound.getTagList("Items");
 		factoryItemStacks = new ItemStack[getSizeInventory()];
 
 		for (int i = 0; i < nbttaglist.tagCount(); i++) {
-			final NBTTagCompound nbttagcompound1 = (NBTTagCompound) nbttaglist
+			NBTTagCompound nbttagcompound1 = (NBTTagCompound) nbttaglist
 					.tagAt(i);
-			final byte byte0 = nbttagcompound1.getByte("Slot");
+			byte byte0 = nbttagcompound1.getByte("Slot");
 			if (byte0 >= 0 && byte0 < factoryItemStacks.length) {
 				factoryItemStacks[byte0] = ItemStack
 						.loadItemStackFromNBT(nbttagcompound1);
@@ -670,7 +630,7 @@ public abstract class TileEntityFactory extends TileEntity
 	 */
 	@Override
 	public net.minecraft.network.packet.Packet getDescriptionPacket() {
-		final NBTTagCompound tag = new NBTTagCompound();
+		NBTTagCompound tag = new NBTTagCompound();
 		writeToNBT(tag);
 		return new Packet132TileEntityData(xCoord, yCoord, zCoord, 0, tag);
 	}
@@ -679,9 +639,8 @@ public abstract class TileEntityFactory extends TileEntity
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void onDataPacket(final INetworkManager net,
-			final Packet132TileEntityData pkt) {
-		readFromNBT(pkt.customParam1);
+	public void onDataPacket(INetworkManager net, Packet132TileEntityData pkt) {
+		readFromNBT(pkt.data);
 	}
 
 }

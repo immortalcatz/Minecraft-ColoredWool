@@ -43,7 +43,7 @@ import cpw.mods.fml.common.registry.TickRegistry;
 import cpw.mods.fml.relauncher.Side;
 
 @Mod(modid = "ColoredWool", name = "ColoredWool", version = "1.0.0")
-@NetworkMod(clientSideRequired = true, serverSideRequired = false, channels = {"ColoredWool"}, packetHandler = PacketHandler.class)
+@NetworkMod(clientSideRequired = true, serverSideRequired = false, channels = { "ColoredWool" }, packetHandler = PacketHandler.class)
 public class ColoredWool implements ITickHandler {
 
 	/**
@@ -124,7 +124,7 @@ public class ColoredWool implements ITickHandler {
 	private static List<ImageImport> imageImport;
 
 	@EventHandler
-	public void preInit(final FMLPreInitializationEvent event) {
+	public void preInit(FMLPreInitializationEvent event) {
 		side = event.getSide();
 		config = Config.load(event);
 		SavedColors.load(config.coloredWool.savedColors);
@@ -210,13 +210,13 @@ public class ColoredWool implements ITickHandler {
 		LanguageRegistry.addName(coloredDye, "Colored Dye");
 		LanguageRegistry.addName(coloredBrush, "Colored Brush");
 		// Craft.
-		final ItemStack cds = new ItemStack(coloredDye);
-		final ItemStack pls = new ItemStack(Block.planks);
-		final ItemStack cls = new ItemStack(Block.cloth);
-		final ItemStack iis = new ItemStack(Item.ingotIron);
-		final ItemStack igs = new ItemStack(Item.ingotGold);
-		final ItemStack gls = new ItemStack(Block.glass);
-		final ItemStack rds = new ItemStack(Item.redstone);
+		ItemStack cds = new ItemStack(coloredDye);
+		ItemStack pls = new ItemStack(Block.planks);
+		ItemStack cls = new ItemStack(Block.cloth);
+		ItemStack iis = new ItemStack(Item.ingotIron);
+		ItemStack igs = new ItemStack(Item.ingotGold);
+		ItemStack gls = new ItemStack(Block.glass);
+		ItemStack rds = new ItemStack(Item.redstone);
 		GameRegistry.addShapelessRecipe(new ItemStack(coloredWool), cds, cls);
 		GameRegistry.addShapelessRecipe(cds,
 				new ItemStack(Item.dyePowder, 1, 1), new ItemStack(
@@ -241,14 +241,14 @@ public class ColoredWool implements ITickHandler {
 	 *            its path.
 	 * @return the image.
 	 */
-	public static BufferedImage getLocalImage(final String path) {
+	public static BufferedImage getLocalImage(String path) {
 		try {
-			final File f = new File(config.coloredWool.folder);
+			File f = new File(config.coloredWool.folder);
 			if (f.isDirectory() && !f.exists()) {
 				f.mkdirs();
 			}
 			return ImageIO.read(new File(f, path));
-		} catch (final Exception e) {
+		} catch (Exception e) {
 			FMLLog.log(MOD_ID, Level.SEVERE, e, "Image not found");
 			return null;
 		}
@@ -260,7 +260,7 @@ public class ColoredWool implements ITickHandler {
 	 * @param imageImport
 	 *            the image import to add.
 	 */
-	public static void addImageImport(final ImageImport imageImport) {
+	public static void addImageImport(ImageImport imageImport) {
 		ColoredWool.imageImport.add(imageImport);
 	}
 
@@ -268,11 +268,11 @@ public class ColoredWool implements ITickHandler {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void tickEnd(final EnumSet<TickType> type, final Object... tickData) {
+	public void tickEnd(EnumSet<TickType> type, Object... tickData) {
 		if ((side == Side.SERVER && type.equals(EnumSet.of(TickType.SERVER)))
 				|| (side == Side.CLIENT && type.equals(EnumSet
 						.of(TickType.CLIENT)))) {
-			for (final ImageImport ii : imageImport) {
+			for (ImageImport ii : imageImport) {
 				ii.imageTick();
 				if (ii.importFinished) {
 					imageImport.remove(ii);
@@ -287,12 +287,12 @@ public class ColoredWool implements ITickHandler {
 	@Override
 	public EnumSet<TickType> ticks() {
 		switch (side) {
-			case CLIENT :
-				return EnumSet.of(TickType.CLIENT);
-			case SERVER :
-				return EnumSet.of(TickType.SERVER);
-			default :
-				return null;
+		case CLIENT:
+			return EnumSet.of(TickType.CLIENT);
+		case SERVER:
+			return EnumSet.of(TickType.SERVER);
+		default:
+			return null;
 		}
 	}
 
@@ -300,8 +300,7 @@ public class ColoredWool implements ITickHandler {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void tickStart(final EnumSet<TickType> type,
-			final Object... tickData) {
+	public void tickStart(EnumSet<TickType> type, Object... tickData) {
 	}
 
 	/**

@@ -4,12 +4,10 @@ public enum Orientation {
 
 	North(Axis.Z) {
 
-		@Override
 		public Orientation getNext() {
 			return South;
 		}
-
-		@Override
+		
 		public int getDZ() {
 			return -1;
 		}
@@ -18,12 +16,10 @@ public enum Orientation {
 
 	South(Axis.Z) {
 
-		@Override
 		public Orientation getNext() {
 			return East;
 		}
-
-		@Override
+		
 		public int getDZ() {
 			return 1;
 		}
@@ -32,12 +28,10 @@ public enum Orientation {
 
 	East(Axis.X) {
 
-		@Override
 		public Orientation getNext() {
 			return West;
 		}
-
-		@Override
+		
 		public int getDX() {
 			return 1;
 		}
@@ -46,12 +40,10 @@ public enum Orientation {
 
 	West(Axis.X) {
 
-		@Override
 		public Orientation getNext() {
 			return Up;
 		}
-
-		@Override
+		
 		public int getDX() {
 			return -1;
 		}
@@ -60,12 +52,10 @@ public enum Orientation {
 
 	Up(Axis.Y) {
 
-		@Override
 		public Orientation getNext() {
 			return Down;
 		}
-
-		@Override
+		
 		public int getDY() {
 			return 1;
 		}
@@ -74,12 +64,10 @@ public enum Orientation {
 
 	Down(Axis.Y) {
 
-		@Override
 		public Orientation getNext() {
 			return North;
 		}
-
-		@Override
+		
 		public int getDY() {
 			return -1;
 		}
@@ -106,7 +94,7 @@ public enum Orientation {
 	 * @param axis
 	 *            corresponding axis.
 	 */
-	private Orientation(final Axis axis) {
+	private Orientation(Axis axis) {
 		this.axis = axis;
 	}
 
@@ -124,7 +112,7 @@ public enum Orientation {
 	 *            another orientation.
 	 * @return if they are compatible.
 	 */
-	public boolean isCompatible(final Orientation other) {
+	public boolean isCompatible(Orientation other) {
 		return axis != other.axis;
 	}
 

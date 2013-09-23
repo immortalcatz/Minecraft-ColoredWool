@@ -24,6 +24,11 @@ public class GuiColoredWoolHexa extends GuiScreen {
 	private static final char DONE = 0;
 
 	/**
+	 * Allowed characters.
+	 */
+	private static final String allowedCharacters = "0123456789abcdefABCDEF";
+
+	/**
 	 * Text field.
 	 */
 	private GuiTextField hexaInput;
@@ -54,6 +59,11 @@ public class GuiColoredWoolHexa extends GuiScreen {
 	private String screenTitle;
 
 	/**
+	 * Update counter.
+	 */
+	private int updateCounter;
+
+	/**
 	 * Initializing constructor.
 	 * 
 	 * @param player
@@ -63,7 +73,7 @@ public class GuiColoredWoolHexa extends GuiScreen {
 	 * @param color
 	 *            selected color.
 	 */
-	public GuiColoredWoolHexa(final GuiColoredWoolMenu menu) {
+	public GuiColoredWoolHexa(GuiColoredWoolMenu menu) {
 		super();
 		this.menu = menu;
 		setSelectedColor(menu.selectedColor);
@@ -95,6 +105,7 @@ public class GuiColoredWoolHexa extends GuiScreen {
 	@Override
 	public void updateScreen() {
 		super.updateScreen();
+		updateCounter += 1;
 	}
 
 	/**
@@ -111,7 +122,7 @@ public class GuiColoredWoolHexa extends GuiScreen {
 	 *            the input.
 	 * @return valid input.
 	 */
-	private String validateHexaString(final String hex) {
+	private String validateHexaString(String hex) {
 		String tmp = hex;
 		for (int i = tmp.length(); i < 6; i++) {
 			tmp = "0" + tmp;
@@ -123,7 +134,7 @@ public class GuiColoredWoolHexa extends GuiScreen {
 	 * {@inheritDoc}
 	 */
 	@Override
-	protected void actionPerformed(final GuiButton par1GuiButton) {
+	protected void actionPerformed(GuiButton par1GuiButton) {
 		if (par1GuiButton.enabled) {
 			if (par1GuiButton.id == DONE) {
 				Keyboard.enableRepeatEvents(false);
@@ -137,7 +148,7 @@ public class GuiColoredWoolHexa extends GuiScreen {
 	 * {@inheritDoc}
 	 */
 	@Override
-	protected void keyTyped(final char par1, final int par2) {
+	protected void keyTyped(char par1, int par2) {
 		if (("0123456789abcdefABCDEF".indexOf(par1) >= 0) || (par2 == 14)) {
 			hexaInput.textboxKeyTyped(par1, par2);
 			checkHexaInput();
@@ -150,7 +161,7 @@ public class GuiColoredWoolHexa extends GuiScreen {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void drawScreen(final int par1, final int par2, final float par3) {
+	public void drawScreen(int par1, int par2, float par3) {
 		drawDefaultBackground();
 		drawCenteredString(fontRenderer, screenTitle, width / 2, 40, 16777215);
 		hexaInput.drawTextBox();
@@ -175,10 +186,10 @@ public class GuiColoredWoolHexa extends GuiScreen {
 	 * @param color
 	 *            new value.
 	 */
-	public void setSelectedColor(final Color color) {
-		final int rgb = ((char) color.getRed() << '\020')
+	public void setSelectedColor(Color color) {
+		int rgb = ((char) color.getRed() << '\020')
 				+ ((char) color.getGreen() << '\b') + (char) color.getBlue();
-		final String hex = Integer.toHexString(rgb);
+		String hex = Integer.toHexString(rgb);
 		hexaString = validateHexaString(hex);
 	}
 

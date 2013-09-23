@@ -64,6 +64,7 @@ public class GuiColoredWoolMenu extends GuiScreen {
 	 */
 	protected Color selectedColor;
 	protected String screenTitle;
+	private int updateCounter;
 	protected GuiButton lastColorButton;
 
 	/**
@@ -76,12 +77,12 @@ public class GuiColoredWoolMenu extends GuiScreen {
 	 * @param color
 	 *            selected color.
 	 */
-	public GuiColoredWoolMenu(final EntityPlayer player,
-			final TileEntityColoredWool tileEntity, final Color color) {
+	public GuiColoredWoolMenu(EntityPlayer player,
+			TileEntityColoredWool tileEntity, Color color) {
 		super();
 		this.player = player;
 		this.tileEntity = tileEntity;
-		selectedColor = color;
+		this.selectedColor = color;
 	}
 
 	/**
@@ -123,32 +124,32 @@ public class GuiColoredWoolMenu extends GuiScreen {
 	@Override
 	public void updateScreen() {
 		super.updateScreen();
+		updateCounter += 1;
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	protected void actionPerformed(final GuiButton par1GuiButton) {
+	protected void actionPerformed(GuiButton par1GuiButton) {
 		if (par1GuiButton.enabled) {
 			switch (par1GuiButton.id) {
-				case HEXA :
-					ModLoader.openGUI(player, new GuiColoredWoolHexa(this));
-					break;
-				case SAVED_COLORS :
-					ModLoader.openGUI(player, new GuiColoredWoolSavedColors(
-							this));
-					break;
-				case LAST_COLOR :
-					selectedColor = lastColor;
-				case DONE :
-					close();
-					break;
-				case IMPORT_IMAGE :
-					ModLoader.openGUI(player, new GuiColoredWoolImport(this,
-							tileEntity.xCoord, tileEntity.yCoord,
-							tileEntity.zCoord));
-					break;
+			case HEXA:
+				ModLoader.openGUI(player, new GuiColoredWoolHexa(this));
+				break;
+			case SAVED_COLORS:
+				ModLoader.openGUI(player, new GuiColoredWoolSavedColors(this));
+				break;
+			case LAST_COLOR:
+				selectedColor = lastColor;
+			case DONE:
+				close();
+				break;
+			case IMPORT_IMAGE:
+				ModLoader.openGUI(player,
+						new GuiColoredWoolImport(this, tileEntity.xCoord,
+								tileEntity.yCoord, tileEntity.zCoord));
+				break;
 			}
 		}
 	}
@@ -157,7 +158,7 @@ public class GuiColoredWoolMenu extends GuiScreen {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void drawScreen(final int par1, final int par2, final float par3) {
+	public void drawScreen(int par1, int par2, float par3) {
 		drawDefaultBackground();
 		drawCenteredString(fontRenderer, screenTitle, width / 2, 40, 16777215);
 		super.drawScreen(par1, par2, par3);

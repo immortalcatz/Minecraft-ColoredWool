@@ -21,16 +21,15 @@ public class PacketHandler implements IPacketHandler {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void onPacketData(final INetworkManager manager,
-			final Packet250CustomPayload packet, final Player player) {
+	public void onPacketData(INetworkManager manager,
+			Packet250CustomPayload packet, Player player) {
 		if (packet.channel.equals(ColoredWool.MOD_ID)) {
 			try {
-				final ByteArrayInputStream bis = new ByteArrayInputStream(
-						packet.data);
-				final DataInputStream dis = new DataInputStream(bis);
-				final Packet p = Packet.values()[dis.readInt()];
+				ByteArrayInputStream bis = new ByteArrayInputStream(packet.data);
+				DataInputStream dis = new DataInputStream(bis);
+				Packet p = Packet.values()[dis.readInt()];
 				p.handle(packet, dis, (EntityPlayer) player);
-			} catch (final IOException e) {
+			} catch (IOException e) {
 				FMLLog.log(ColoredWool.MOD_ID, Level.SEVERE, e,
 						"Could not handle the packet");
 			}

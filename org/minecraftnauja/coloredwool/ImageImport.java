@@ -12,27 +12,32 @@ import org.minecraftnauja.coloredwool.tileentity.TileEntityColoredWool;
 public class ImageImport {
 
 	public boolean importFinished;
-	private final BufferedImage image;
-	private final World worldObj;
+	private EntityPlayer player;
+	private BufferedImage image;
+	private World worldObj;
+	private Orientation xOrient;
+	private Orientation yOrient;
 	private int xCurrent;
 	private int yCurrent;
-	private final int originX;
-	private final int originY;
-	private final int originZ;
-	private final int imageWidth;
-	private final int imageHeight;
-	private final int xxa;
-	private final int xya;
-	private final int xza;
-	private final int yxa;
-	private final int yya;
-	private final int yza;
+	private int originX;
+	private int originY;
+	private int originZ;
+	private int imageWidth;
+	private int imageHeight;
+	private int xxa;
+	private int xya;
+	private int xza;
+	private int yxa;
+	private int yya;
+	private int yza;
 
-	public ImageImport(final EntityPlayer player, final int x, final int y,
-			final int z, final BufferedImage image, final Orientation xOrient,
-			final Orientation yOrient) {
+	public ImageImport(EntityPlayer player, int x, int y, int z,
+			BufferedImage image, Orientation xOrient, Orientation yOrient) {
 		importFinished = false;
+		this.player = player;
 		this.image = image;
+		this.xOrient = xOrient;
+		this.yOrient = yOrient;
 		worldObj = player.worldObj;
 		xCurrent = 0;
 		yCurrent = 0;
@@ -53,22 +58,22 @@ public class ImageImport {
 		int xOffset = 0;
 		int yOffset = 0;
 		int zOffset = 0;
-		final int aRGB = image.getRGB(xCurrent, yCurrent);
-		final Color pix = new Color(aRGB, true);
+		int aRGB = image.getRGB(xCurrent, yCurrent);
+		Color pix = new Color(aRGB, true);
 
-		if (xxa != 0) {
+		if (xxa != 0)
 			xOffset = xCurrent * xxa;
-		} else if (xya != 0) {
+		else if (xya != 0)
 			yOffset = xCurrent * xya;
-		} else if (xza != 0) {
+		else if (xza != 0) {
 			zOffset = xCurrent * xza;
 		}
 
-		if (yza != 0) {
+		if (yza != 0)
 			zOffset = yCurrent * yza;
-		} else if (yxa != 0) {
+		else if (yxa != 0)
 			xOffset = yCurrent * yxa;
-		} else if (yya != 0) {
+		else if (yya != 0) {
 			yOffset = yCurrent * yya;
 		}
 
@@ -78,10 +83,10 @@ public class ImageImport {
 		}
 
 		if (pix.getAlpha() == 255) {
-			final TileEntity loadTileEntity = worldObj.getBlockTileEntity(
-					originX + xOffset, originY + yOffset, originZ + zOffset);
+			TileEntity loadTileEntity = worldObj.getBlockTileEntity(originX
+					+ xOffset, originY + yOffset, originZ + zOffset);
 			if ((loadTileEntity instanceof TileEntityColoredWool)) {
-				final TileEntityColoredWool currentBlockEntity = (TileEntityColoredWool) loadTileEntity;
+				TileEntityColoredWool currentBlockEntity = (TileEntityColoredWool) loadTileEntity;
 				if (currentBlockEntity != null) {
 					currentBlockEntity.color = pix.getRGB();
 					currentBlockEntity.sendColorToPlayers();

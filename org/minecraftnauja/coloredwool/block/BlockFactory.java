@@ -86,7 +86,7 @@ public abstract class BlockFactory extends BlockContainer {
 	 * @param state
 	 *            its state.
 	 */
-	protected BlockFactory(final int par1, final FactoryState state) {
+	protected BlockFactory(int par1, FactoryState state) {
 		super(par1, Block.furnaceIdle.blockMaterial);
 		this.state = state;
 	}
@@ -116,7 +116,7 @@ public abstract class BlockFactory extends BlockContainer {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public int idDropped(final int par1, final Random par2Random, final int par3) {
+	public int idDropped(int par1, Random par2Random, int par3) {
 		return getIdleId();
 	}
 
@@ -125,25 +125,20 @@ public abstract class BlockFactory extends BlockContainer {
 	 */
 	@SideOnly(Side.CLIENT)
 	@Override
-	public Icon getIcon(final int par1, final int par2) {
+	public Icon getIcon(int par1, int par2) {
 		if (par1 == 0) {
 			return iconBottom;
 		}
-		if (par2 == 2) {
+		if (par2 == 2)
 			return getIconWhenFacingEast(par1);
-		}
-		if (par2 == 3) {
+		if (par2 == 3)
 			return getIconWhenFacingSouth(par1);
-		}
-		if (par2 == 0) {
+		if (par2 == 0)
 			return getIconWhenFacingWest(par1);
-		}
-		if (par2 == 1) {
+		if (par2 == 1)
 			return getIconWhenFacingNorth(par1);
-		}
-		if ((par2 >= 5) && (par2 <= 8)) {
+		if ((par2 >= 5) && (par2 <= 8))
 			return getIconWhenFacingTop(par1, par2);
-		}
 		return iconUnused;
 	}
 
@@ -155,53 +150,45 @@ public abstract class BlockFactory extends BlockContainer {
 	 * @return
 	 */
 	@SideOnly(Side.CLIENT)
-	public Icon getIconWhenFacingTop(final int par1, final int par2) {
+	public Icon getIconWhenFacingTop(int par1, int par2) {
 		if (par1 == 1) {
 			return iconTop;
 		}
 		if (par2 == 5) {
-			if (par1 == 5) {
+			if (par1 == 5)
 				return iconInput;
-			}
-			if (par1 == 3) {
+			if (par1 == 3)
 				return iconFurnace;
-			}
 			if (par1 == 4) {
 				return iconInside;
 			}
 			return iconUnused;
 		}
 		if (par2 == 6) {
-			if (par1 == 3) {
+			if (par1 == 3)
 				return iconInput;
-			}
-			if (par1 == 4) {
+			if (par1 == 4)
 				return iconFurnace;
-			}
 			if (par1 == 2) {
 				return iconInside;
 			}
 			return iconUnused;
 		}
 		if (par2 == 7) {
-			if (par1 == 4) {
+			if (par1 == 4)
 				return iconInput;
-			}
-			if (par1 == 2) {
+			if (par1 == 2)
 				return iconFurnace;
-			}
 			if (par1 == 5) {
 				return iconInside;
 			}
 			return iconUnused;
 		}
 		if (par2 == 8) {
-			if (par1 == 2) {
+			if (par1 == 2)
 				return iconInput;
-			}
-			if (par1 == 5) {
+			if (par1 == 5)
 				return iconFurnace;
-			}
 			if (par1 == 3) {
 				return iconInside;
 			}
@@ -218,16 +205,13 @@ public abstract class BlockFactory extends BlockContainer {
 	 * @return
 	 */
 	@SideOnly(Side.CLIENT)
-	public Icon getIconWhenFacingEast(final int par1) {
-		if (par1 == 2) {
+	public Icon getIconWhenFacingEast(int par1) {
+		if (par1 == 2)
 			return iconTop;
-		}
-		if (par1 == 5) {
+		if (par1 == 5)
 			return iconInput;
-		}
-		if (par1 == 3) {
+		if (par1 == 3)
 			return iconFurnace;
-		}
 		if (par1 == 4) {
 			return iconInside;
 		}
@@ -241,16 +225,13 @@ public abstract class BlockFactory extends BlockContainer {
 	 * @return
 	 */
 	@SideOnly(Side.CLIENT)
-	public Icon getIconWhenFacingWest(final int par1) {
-		if (par1 == 3) {
+	public Icon getIconWhenFacingWest(int par1) {
+		if (par1 == 3)
 			return iconTop;
-		}
-		if (par1 == 4) {
+		if (par1 == 4)
 			return iconInput;
-		}
-		if (par1 == 2) {
+		if (par1 == 2)
 			return iconFurnace;
-		}
 		if (par1 == 5) {
 			return iconInside;
 		}
@@ -264,16 +245,13 @@ public abstract class BlockFactory extends BlockContainer {
 	 * @return
 	 */
 	@SideOnly(Side.CLIENT)
-	public Icon getIconWhenFacingSouth(final int par1) {
-		if (par1 == 5) {
+	public Icon getIconWhenFacingSouth(int par1) {
+		if (par1 == 5)
 			return iconTop;
-		}
-		if (par1 == 3) {
+		if (par1 == 3)
 			return iconInput;
-		}
-		if (par1 == 4) {
+		if (par1 == 4)
 			return iconFurnace;
-		}
 		if (par1 == 2) {
 			return iconInside;
 		}
@@ -287,16 +265,13 @@ public abstract class BlockFactory extends BlockContainer {
 	 * @return
 	 */
 	@SideOnly(Side.CLIENT)
-	public Icon getIconWhenFacingNorth(final int par1) {
-		if (par1 == 4) {
+	public Icon getIconWhenFacingNorth(int par1) {
+		if (par1 == 4)
 			return iconTop;
-		}
-		if (par1 == 2) {
+		if (par1 == 2)
 			return iconInput;
-		}
-		if (par1 == 5) {
+		if (par1 == 5)
 			return iconFurnace;
-		}
 		if (par1 == 3) {
 			return iconInside;
 		}
@@ -308,8 +283,8 @@ public abstract class BlockFactory extends BlockContainer {
 	 */
 	@SideOnly(Side.CLIENT)
 	@Override
-	public void registerIcons(final IconRegister par1IconRegister) {
-		final String prefix = "ColoredWool:" + getIconPrefix() + "Factory";
+	public void registerIcons(IconRegister par1IconRegister) {
+		String prefix = "ColoredWool:" + getIconPrefix() + "Factory";
 		iconBottom = par1IconRegister.registerIcon(prefix + "Bottom");
 		iconFurnace = par1IconRegister.registerIcon(prefix + "Furnace"
 				+ (state == FactoryState.Burning ? "Active" : "Idle"));
@@ -351,17 +326,16 @@ public abstract class BlockFactory extends BlockContainer {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public boolean onBlockActivated(final World par1World, final int par2,
-			final int par3, final int par4,
-			final EntityPlayer par5EntityPlayer, final int par6,
-			final float par7, final float par8, final float par9) {
+	public boolean onBlockActivated(World par1World, int par2, int par3,
+			int par4, EntityPlayer par5EntityPlayer, int par6, float par7,
+			float par8, float par9) {
 		if (par3 < (int) par5EntityPlayer.posY - 1) {
 			return false;
 		}
-		final int l = MathHelper
-				.floor_double(par5EntityPlayer.rotationYaw * 4.0F / 360.0F + 0.5D) & 3;
-		final int metadata = par1World.getBlockMetadata(par2, par3, par4);
-		final TileEntityFactory entity = (TileEntityFactory) par1World
+		int l = MathHelper
+				.floor_double((double) (par5EntityPlayer.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
+		int metadata = par1World.getBlockMetadata(par2, par3, par4);
+		TileEntityFactory entity = (TileEntityFactory) par1World
 				.getBlockTileEntity(par2, par3, par4);
 		if (entity == null) {
 			return false;
@@ -396,17 +370,17 @@ public abstract class BlockFactory extends BlockContainer {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void onBlockClicked(final World par1World, final int par2,
-			final int par3, final int par4, final EntityPlayer par5EntityPlayer) {
+	public void onBlockClicked(World par1World, int par2, int par3, int par4,
+			EntityPlayer par5EntityPlayer) {
 		if (par1World.isRemote) {
 			return;
 		}
 		if (par3 < (int) par5EntityPlayer.posY) {
 			return;
 		}
-		final int l = MathHelper
-				.floor_double(par5EntityPlayer.rotationYaw * 4.0F / 360.0F + 0.5D) & 3;
-		final int metadata = par1World.getBlockMetadata(par2, par3, par4);
+		int l = MathHelper
+				.floor_double((double) (par5EntityPlayer.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
+		int metadata = par1World.getBlockMetadata(par2, par3, par4);
 		if ((metadata == 3 && l == 2) || (metadata == 1 && l == 0)
 				|| (metadata == 0 && l == 3) || (metadata == 2 && l == 1)
 				|| (metadata == 5 && l == 1) || (metadata == 7 && l == 3)
@@ -437,16 +411,16 @@ public abstract class BlockFactory extends BlockContainer {
 	 */
 	@SideOnly(Side.CLIENT)
 	@Override
-	public void randomDisplayTick(final World par1World, final int par2,
-			final int par3, final int par4, final Random par5Random) {
+	public void randomDisplayTick(World par1World, int par2, int par3,
+			int par4, Random par5Random) {
 		if (state == FactoryState.Burning) {
-			final int l = par1World.getBlockMetadata(par2, par3, par4);
-			final float f = par2 + 0.5F;
-			final float f1 = par3 + 0.0F + par5Random.nextFloat() * 6.0F
+			int l = par1World.getBlockMetadata(par2, par3, par4);
+			float f = (float) par2 + 0.5F;
+			float f1 = (float) par3 + 0.0F + par5Random.nextFloat() * 6.0F
 					/ 16.0F;
-			final float f2 = par4 + 0.5F;
-			final float f3 = 0.52F;
-			final float f4 = par5Random.nextFloat() * 0.6F - 0.3F;
+			float f2 = (float) par4 + 0.5F;
+			float f3 = 0.52F;
+			float f4 = par5Random.nextFloat() * 0.6F - 0.3F;
 			if ((l == 3) || (l == 6)) {
 				par1World.spawnParticle("smoke", f - f3, f1, f2 + f4, 0.0D,
 						0.0D, 0.0D);
@@ -475,35 +449,31 @@ public abstract class BlockFactory extends BlockContainer {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void onBlockPlacedBy(final World par1World, final int par2,
-			final int par3, final int par4,
-			final EntityLivingBase par5EntityLiving,
-			final ItemStack par6ItemStack) {
+	public void onBlockPlacedBy(World par1World, int par2, int par3, int par4,
+			EntityLivingBase par5EntityLiving, ItemStack par6ItemStack) {
 		int l = 0;
 		switch (MathHelper
-				.floor_double(par5EntityLiving.rotationYaw * 4.0F / 360.0F + 0.5D) & 3) {
-			case 0 :
-				l = 2;
-				break;
-			case 1 :
-				l = 3;
-				break;
-			case 2 :
-				l = 0;
-				break;
-			case 3 :
-				l = 1;
-				break;
+				.floor_double((double) (par5EntityLiving.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3) {
+		case 0:
+			l = 2;
+			break;
+		case 1:
+			l = 3;
+			break;
+		case 2:
+			l = 0;
+			break;
+		case 3:
+			l = 1;
+			break;
 		}
 		if (par3 < (int) par5EntityLiving.posY - 1) {
 			l += 5;
 		}
 		par1World.setBlockMetadataWithNotify(par2, par3, par4, l, 2);
-		final TileEntityFactory e = (TileEntityFactory) par1World
-				.getBlockTileEntity(par2, par3, par4);
-		e.setOwner(par5EntityLiving.getEntityName());
 		if (par6ItemStack.hasDisplayName()) {
-			e.setInvName(par6ItemStack.getDisplayName());
+			((TileEntityFactory) par1World.getBlockTileEntity(par2, par3, par4))
+					.setInvName(par6ItemStack.getDisplayName());
 		}
 	}
 
@@ -511,26 +481,28 @@ public abstract class BlockFactory extends BlockContainer {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void breakBlock(final World par1World, final int par2,
-			final int par3, final int par4, final int par5, final int par6) {
+	public void breakBlock(World par1World, int par2, int par3, int par4,
+			int par5, int par6) {
 		if (!keepFactoryInventory) {
-			final TileEntityFactory tef = (TileEntityFactory) par1World
+			TileEntityFactory tef = (TileEntityFactory) par1World
 					.getBlockTileEntity(par2, par3, par4);
 			if (tef != null) {
 				for (int j1 = 0; j1 < tef.getSizeInventory(); ++j1) {
-					final ItemStack itemstack = tef.getStackInSlot(j1);
+					ItemStack itemstack = tef.getStackInSlot(j1);
 					if (itemstack != null) {
-						final float f = factoryRand.nextFloat() * 0.8F + 0.1F;
-						final float f1 = factoryRand.nextFloat() * 0.8F + 0.1F;
-						final float f2 = factoryRand.nextFloat() * 0.8F + 0.1F;
+						float f = factoryRand.nextFloat() * 0.8F + 0.1F;
+						float f1 = factoryRand.nextFloat() * 0.8F + 0.1F;
+						float f2 = factoryRand.nextFloat() * 0.8F + 0.1F;
 						while (itemstack.stackSize > 0) {
 							int k1 = factoryRand.nextInt(21) + 10;
 							if (k1 > itemstack.stackSize) {
 								k1 = itemstack.stackSize;
 							}
 							itemstack.stackSize -= k1;
-							final EntityItem entityitem = new EntityItem(
-									par1World, par2 + f, par3 + f1, par4 + f2,
+							EntityItem entityitem = new EntityItem(par1World,
+									(double) ((float) par2 + f),
+									(double) ((float) par3 + f1),
+									(double) ((float) par4 + f2),
 									new ItemStack(itemstack.itemID, k1,
 											itemstack.getItemDamage()));
 							if (itemstack.hasTagCompound()) {
@@ -538,13 +510,13 @@ public abstract class BlockFactory extends BlockContainer {
 										(NBTTagCompound) itemstack
 												.getTagCompound().copy());
 							}
-							final float f3 = 0.05F;
-							entityitem.motionX = (float) factoryRand
-									.nextGaussian() * f3;
-							entityitem.motionY = (float) factoryRand
-									.nextGaussian() * f3 + 0.2F;
-							entityitem.motionZ = (float) factoryRand
-									.nextGaussian() * f3;
+							float f3 = 0.05F;
+							entityitem.motionX = (double) ((float) factoryRand
+									.nextGaussian() * f3);
+							entityitem.motionY = (double) ((float) factoryRand
+									.nextGaussian() * f3 + 0.2F);
+							entityitem.motionZ = (double) ((float) factoryRand
+									.nextGaussian() * f3);
 							par1World.spawnEntityInWorld(entityitem);
 						}
 					}
@@ -567,8 +539,8 @@ public abstract class BlockFactory extends BlockContainer {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public int getComparatorInputOverride(final World par1World,
-			final int par2, final int par3, final int par4, final int par5) {
+	public int getComparatorInputOverride(World par1World, int par2, int par3,
+			int par4, int par5) {
 		return Container.calcRedstoneFromInventory((IInventory) par1World
 				.getBlockTileEntity(par2, par3, par4));
 	}
@@ -578,8 +550,7 @@ public abstract class BlockFactory extends BlockContainer {
 	 */
 	@SideOnly(Side.CLIENT)
 	@Override
-	public int idPicked(final World par1World, final int par2, final int par3,
-			final int par4) {
+	public int idPicked(World par1World, int par2, int par3, int par4) {
 		return getIdleId();
 	}
 

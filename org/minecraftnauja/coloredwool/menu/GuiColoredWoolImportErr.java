@@ -1,9 +1,9 @@
 package org.minecraftnauja.coloredwool.menu;
 
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.gui.GuiScreen;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraft.client.gui.GuiButton;
+import net.minecraft.client.gui.GuiScreen;
 
 /**
  * Menu for error when importing image.
@@ -32,9 +32,9 @@ public class GuiColoredWoolImportErr extends GuiScreen {
 	 * @param error
 	 *            error message.
 	 */
-	public GuiColoredWoolImportErr(final String error) {
+	public GuiColoredWoolImportErr(String error) {
 		super();
-		errormessage = error;
+		this.errormessage = error;
 	}
 
 	/**
@@ -51,8 +51,8 @@ public class GuiColoredWoolImportErr extends GuiScreen {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void drawScreen(final int par1, final int par2, final float par3) {
-		drawDefaultBackground();
+	public void drawScreen(int par1, int par2, float par3) {
+		this.drawDefaultBackground();
 		drawCenteredString(fontRenderer, errormessage, width / 2, 40, 16777215);
 		super.drawScreen(par1, par2, par3);
 	}
@@ -61,12 +61,12 @@ public class GuiColoredWoolImportErr extends GuiScreen {
 	 * {@inheritDoc}
 	 */
 	@Override
-	protected void actionPerformed(final GuiButton par1GuiButton) {
+	protected void actionPerformed(GuiButton par1GuiButton) {
 		if (par1GuiButton.enabled) {
 			switch (par1GuiButton.id) {
-				case OK :
-					mc.displayGuiScreen(null);
-					break;
+			case OK:
+				mc.displayGuiScreen(null);
+				break;
 			}
 		}
 	}

@@ -19,7 +19,7 @@ public class ContainerFactory extends Container {
 	/**
 	 * Instance of the factory.
 	 */
-	private final TileEntityFactory factory;
+	private TileEntityFactory factory;
 
 	/**
 	 * Progress.
@@ -49,8 +49,7 @@ public class ContainerFactory extends Container {
 	 * @param factory
 	 *            instance of the factory.
 	 */
-	public ContainerFactory(final InventoryPlayer inventory,
-			final TileEntityFactory factory) {
+	public ContainerFactory(InventoryPlayer inventory, TileEntityFactory factory) {
 		cookTime = 0;
 		burnTime = 0;
 		progressWidth = 0;
@@ -59,11 +58,11 @@ public class ContainerFactory extends Container {
 
 		for (int y = 0; y < 3; y++) {
 			for (int x = 0; x < 2; x++) {
-				addSlotToContainer(new SlotFactory(factory, x + y * 2,
-						8 + x * 18, 17 + y * 18));
+				addSlotToContainer(new Slot(factory, x + y * 2, 8 + x * 18,
+						17 + y * 18));
 			}
 		}
-		addSlotToContainer(new SlotFactory(factory, 6, 80, 35));
+		addSlotToContainer(new Slot(factory, 6, 80, 35));
 
 		for (int i = 0; i < 3; i++) {
 			for (int k = 0; k < 9; k++) {
@@ -73,16 +72,15 @@ public class ContainerFactory extends Container {
 
 		}
 
-		for (int j = 0; j < 9; j++) {
+		for (int j = 0; j < 9; j++)
 			addSlotToContainer(new Slot(inventory, j, 8 + j * 18, 142));
-		}
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void addCraftingToCrafters(final ICrafting par1ICrafting) {
+	public void addCraftingToCrafters(ICrafting par1ICrafting) {
 		super.addCraftingToCrafters(par1ICrafting);
 		par1ICrafting.sendProgressBarUpdate(this, 0, factory.factoryCookTime);
 		par1ICrafting.sendProgressBarUpdate(this, 1, factory.progressWidth);
@@ -97,7 +95,7 @@ public class ContainerFactory extends Container {
 	public void detectAndSendChanges() {
 		super.detectAndSendChanges();
 		for (int i = 0; i < crafters.size(); i++) {
-			final ICrafting icrafting = (ICrafting) crafters.get(i);
+			ICrafting icrafting = (ICrafting) crafters.get(i);
 			if (cookTime != factory.factoryCookTime) {
 				icrafting.sendProgressBarUpdate(this, 0,
 						factory.factoryCookTime);
@@ -126,20 +124,20 @@ public class ContainerFactory extends Container {
 	 */
 	@SideOnly(Side.CLIENT)
 	@Override
-	public void updateProgressBar(final int par1, final int par2) {
+	public void updateProgressBar(int par1, int par2) {
 		switch (par1) {
-			case 0 :
-				factory.factoryCookTime = par2;
-				break;
-			case 1 :
-				factory.progressWidth = par2;
-				break;
-			case 2 :
-				factory.progressHeight = par2;
-				break;
-			case 3 :
-				factory.factoryBurnTime = par2;
-				break;
+		case 0:
+			factory.factoryCookTime = par2;
+			break;
+		case 1:
+			factory.progressWidth = par2;
+			break;
+		case 2:
+			factory.progressHeight = par2;
+			break;
+		case 3:
+			factory.factoryBurnTime = par2;
+			break;
 		}
 	}
 
@@ -147,7 +145,7 @@ public class ContainerFactory extends Container {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public boolean canInteractWith(final EntityPlayer par1EntityPlayer) {
+	public boolean canInteractWith(EntityPlayer par1EntityPlayer) {
 		if (factory == null) {
 			return false;
 		}

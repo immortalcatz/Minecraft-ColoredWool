@@ -103,7 +103,7 @@ public class GuiColoredWoolSavedColors extends GuiScreen {
 	/**
 	 * Parent color.
 	 */
-	private final Color parentColor;
+	private Color parentColor;
 
 	/**
 	 * Screen title.
@@ -111,12 +111,17 @@ public class GuiColoredWoolSavedColors extends GuiScreen {
 	private String screenTitle;
 
 	/**
+	 * Update counter.
+	 */
+	private int updateCounter;
+
+	/**
 	 * Initializing constructor.
 	 * 
 	 * @param menu
 	 *            main menu.
 	 */
-	public GuiColoredWoolSavedColors(final GuiColoredWoolMenu menu) {
+	public GuiColoredWoolSavedColors(GuiColoredWoolMenu menu) {
 		super();
 		this.menu = menu;
 		selectedColor = menu.selectedColor;
@@ -160,7 +165,7 @@ public class GuiColoredWoolSavedColors extends GuiScreen {
 		if (selectedColorButton == null) {
 			screenTitle = "Saved colors";
 		} else {
-			final ColorInformations coloredblockcolorinformations = selectedColorButton.color;
+			ColorInformations coloredblockcolorinformations = selectedColorButton.color;
 			screenTitle = ("Saved color 0x" + coloredblockcolorinformations
 					.getHex());
 		}
@@ -170,10 +175,11 @@ public class GuiColoredWoolSavedColors extends GuiScreen {
 	 * Updates the colors.
 	 */
 	protected void updateColors() {
-		final int x1 = width / 2 - 154;
-		final byte byte0 = 60;
-		final int k = previousButton.yPosition - 20;
-		final byte byte1 = 14;
+		int x1 = width / 2 - 154;
+		byte byte0 = 60;
+		int x2 = width / 2 + 154;
+		int k = previousButton.yPosition - 20;
+		byte byte1 = 14;
 		int l = 0;
 		if (byte1 - 1 > 0) {
 			l = (308 - byte1 * 20) / (byte1 - 1);
@@ -181,7 +187,7 @@ public class GuiColoredWoolSavedColors extends GuiScreen {
 		if (l > 10) {
 			l = 10;
 		}
-		final int i1 = (k - byte0) / 20 - 1;
+		int i1 = (k - byte0) / 20 - 1;
 		int j1 = 0;
 		if (i1 - 1 > 0) {
 			j1 = (k - byte0 - i1 * 20) / (i1 - 1);
@@ -193,7 +199,7 @@ public class GuiColoredWoolSavedColors extends GuiScreen {
 		int k1 = 0;
 		int l1 = 0;
 		int i2 = 0;
-		final Iterator iterator = SavedColors.getColorsIterator();
+		Iterator iterator = SavedColors.getColorsIterator();
 		while ((iterator.hasNext()) && (i2 < startIndex)) {
 			iterator.next();
 			i2++;
@@ -201,11 +207,10 @@ public class GuiColoredWoolSavedColors extends GuiScreen {
 		i2 = 0;
 
 		while ((iterator.hasNext()) && (l1 < i1)) {
-			final Map.Entry entry = (Map.Entry) iterator.next();
-			final ColorInformations color = (ColorInformations) entry
-					.getValue();
-			final GuiColorButton button = new GuiColorButton(9 + i2, x1
-					+ (20 + l) * k1, byte0 + (20 + j1) * l1, 20, 20, color);
+			Map.Entry entry = (Map.Entry) iterator.next();
+			ColorInformations color = (ColorInformations) entry.getValue();
+			GuiColorButton button = new GuiColorButton(9 + i2, x1 + (20 + l)
+					* k1, byte0 + (20 + j1) * l1, 20, 20, color);
 			if (color.getColor().equals(selectedColor)) {
 				selectedColorButton = button;
 				button.selected = true;
@@ -227,41 +232,42 @@ public class GuiColoredWoolSavedColors extends GuiScreen {
 	@Override
 	public void updateScreen() {
 		super.updateScreen();
+		updateCounter += 1;
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	protected void actionPerformed(final GuiButton par1GuiButton) {
+	protected void actionPerformed(GuiButton par1GuiButton) {
 		if (par1GuiButton.enabled) {
 			if ((par1GuiButton instanceof GuiColorButton)) {
 				selectedColor((GuiColorButton) par1GuiButton);
 			} else {
 				switch (par1GuiButton.id) {
-					case ADD_COLOR :
-						addSelectedColor();
-						break;
-					case DONE :
-						SavedColors.save();
-						if (selectedColor == null) {
-							selectedColor = parentColor;
-						}
-						menu.selectedColor = selectedColor;
-						ModLoader.openGUI(menu.player, menu);
-						break;
-					case DELETE_COLOR :
-						deleteSelectedColor();
-						break;
-					case CLEAR_COLORS :
-						clearAllColors();
-						break;
-					case PREVIOUS_COLOR :
-						previousColors(maxColors);
-						break;
-					case NEXT_COLOR :
-						nextColors(maxColors);
-						break;
+				case ADD_COLOR:
+					addSelectedColor();
+					break;
+				case DONE:
+					SavedColors.save();
+					if (selectedColor == null) {
+						selectedColor = parentColor;
+					}
+					menu.selectedColor = selectedColor;
+					ModLoader.openGUI(menu.player, menu);
+					break;
+				case DELETE_COLOR:
+					deleteSelectedColor();
+					break;
+				case CLEAR_COLORS:
+					clearAllColors();
+					break;
+				case PREVIOUS_COLOR:
+					previousColors(maxColors);
+					break;
+				case NEXT_COLOR:
+					nextColors(maxColors);
+					break;
 				}
 			}
 		}
@@ -271,7 +277,7 @@ public class GuiColoredWoolSavedColors extends GuiScreen {
 	 * Adds the selected color to saved colors.
 	 */
 	protected void addSelectedColor() {
-		final Color color = parentColor;
+		Color color = parentColor;
 		SavedColors.addColor("", color);
 		selectedColor = color;
 		initGui();
@@ -283,7 +289,7 @@ public class GuiColoredWoolSavedColors extends GuiScreen {
 	 * @param button
 	 *            button.
 	 */
-	protected void selectedColor(final GuiColorButton button) {
+	protected void selectedColor(GuiColorButton button) {
 		if (selectedColorButton != null) {
 			selectedColorButton.selected = false;
 		}
@@ -301,7 +307,7 @@ public class GuiColoredWoolSavedColors extends GuiScreen {
 		if (selectedColorButton == null) {
 			return;
 		}
-		final ColorInformations color = selectedColorButton.color;
+		ColorInformations color = selectedColorButton.color;
 		SavedColors.removeColor(color.getColor());
 		selectedColorButton.selected = false;
 		selectedColorButton = null;
@@ -332,7 +338,7 @@ public class GuiColoredWoolSavedColors extends GuiScreen {
 	 * @param i
 	 *            index.
 	 */
-	protected void previousColors(final int i) {
+	protected void previousColors(int i) {
 		startIndex -= i;
 		if (startIndex < 0) {
 			startIndex = 0;
@@ -346,9 +352,9 @@ public class GuiColoredWoolSavedColors extends GuiScreen {
 	 * @param i
 	 *            index.
 	 */
-	protected void nextColors(final int i) {
+	protected void nextColors(int i) {
 		startIndex += i;
-		final int j = SavedColors.getNbColors();
+		int j = SavedColors.getNbColors();
 		if (startIndex > j) {
 			startIndex = (j - 1);
 		}
@@ -359,7 +365,7 @@ public class GuiColoredWoolSavedColors extends GuiScreen {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void drawScreen(final int par1, final int par2, final float par3) {
+	public void drawScreen(int par1, int par2, float par3) {
 		drawDefaultBackground();
 		drawCenteredString(fontRenderer, screenTitle, width / 2, 40, 16777215);
 		super.drawScreen(par1, par2, par3);

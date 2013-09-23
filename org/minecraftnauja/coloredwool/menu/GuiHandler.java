@@ -16,21 +16,21 @@ public class GuiHandler implements IGuiHandler {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Object getServerGuiElement(final int ID, final EntityPlayer player,
-			final World world, final int x, final int y, final int z) {
-		final TileEntity e = world.getBlockTileEntity(x, y, z);
+	public Object getServerGuiElement(int ID, EntityPlayer player, World world,
+			int x, int y, int z) {
+		TileEntity e = world.getBlockTileEntity(x, y, z);
 		if (e == null) {
 			return null;
 		}
 		switch (Gui.values()[ID]) {
-			case PictureFactoryFurnace :
-				return new ContainerFactory(player.inventory,
-						(TileEntityPictureFactory) e);
-			case ModelFactoryFurnace :
-				return new ContainerFactory(player.inventory,
-						(TileEntityModelFactory) e);
-			default :
-				return null;
+		case PictureFactoryFurnace:
+			return new ContainerFactory(player.inventory,
+					(TileEntityPictureFactory) e);
+		case ModelFactoryFurnace:
+			return new ContainerFactory(player.inventory,
+					(TileEntityModelFactory) e);
+		default:
+			return null;
 		}
 	}
 
@@ -38,21 +38,21 @@ public class GuiHandler implements IGuiHandler {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Object getClientGuiElement(final int ID, final EntityPlayer player,
-			final World world, final int x, final int y, final int z) {
-		final TileEntity e = world.getBlockTileEntity(x, y, z);
+	public Object getClientGuiElement(int ID, EntityPlayer player, World world,
+			int x, int y, int z) {
+		TileEntity e = world.getBlockTileEntity(x, y, z);
 		if (e == null) {
 			return null;
 		}
 		switch (Gui.values()[ID]) {
-			case PictureFactoryFurnace :
-				return new GuiPictureFactoryFurnace(player.inventory,
-						(TileEntityPictureFactory) e);
-			case ModelFactoryFurnace :
-				return new GuiModelFactoryFurnace(player.inventory,
-						(TileEntityModelFactory) e);
-			default :
-				return null;
+		case PictureFactoryFurnace:
+			return new GuiPictureFactoryFurnace(player.inventory,
+					(TileEntityPictureFactory) e);
+		case ModelFactoryFurnace:
+			return new GuiModelFactoryFurnace(player.inventory,
+					(TileEntityModelFactory) e);
+		default:
+			return null;
 		}
 	}
 

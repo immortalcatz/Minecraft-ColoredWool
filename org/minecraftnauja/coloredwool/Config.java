@@ -17,11 +17,11 @@ public final class Config {
 	 *            initialization event.
 	 * @return the configuration.
 	 */
-	public static Config load(final FMLPreInitializationEvent event) {
-		final Configuration config = new Configuration(
+	public static Config load(FMLPreInitializationEvent event) {
+		Configuration config = new Configuration(
 				event.getSuggestedConfigurationFile());
 		config.load();
-		final Config c = new Config(event, config);
+		Config c = new Config(event, config);
 		config.save();
 		return c;
 	}
@@ -54,8 +54,7 @@ public final class Config {
 	 * @param config
 	 *            the configuration.
 	 */
-	private Config(final FMLPreInitializationEvent event,
-			final Configuration config) {
+	private Config(FMLPreInitializationEvent event, Configuration config) {
 		ids = new Ids(config);
 		coloredWool = new ColoredWool(event, config);
 		pictureFactory = new PictureFactory(config);
@@ -128,7 +127,7 @@ public final class Config {
 		 * @param config
 		 *            the configuration.
 		 */
-		private Ids(final Configuration config) {
+		private Ids(Configuration config) {
 			// Blocks.
 			coloredWoolId = config.getBlock("ColoredWool", coloredWoolId)
 					.getInt();
@@ -231,8 +230,8 @@ public final class Config {
 		 * @param config
 		 *            the configuration.
 		 */
-		private ColoredWool(final FMLPreInitializationEvent event,
-				final Configuration config) {
+		private ColoredWool(FMLPreInitializationEvent event,
+				Configuration config) {
 			File f = new File(event.getModConfigurationDirectory(), "images");
 			folder = config.get(CATEGORY, "Folder", f.getAbsolutePath())
 					.getString();
@@ -269,8 +268,8 @@ public final class Config {
 		 *            maximal value.
 		 * @return the value.
 		 */
-		private int get(final Configuration config, final String key,
-				final int value, final int min, final int max) {
+		private int get(Configuration config, String key, int value, int min,
+				int max) {
 			return Math.max(Math.min(
 					config.get(CATEGORY, key, value).getInt(value), max), min);
 		}
@@ -321,11 +320,6 @@ public final class Config {
 		public boolean instantCook = true;
 
 		/**
-		 * Factories are protected.
-		 */
-		public boolean restricted = false;
-
-		/**
 		 * Loads the configuration.
 		 * 
 		 * @param config
@@ -333,7 +327,7 @@ public final class Config {
 		 * @param category
 		 *            configuration category.
 		 */
-		private Factory(final Configuration config, final String category) {
+		private Factory(Configuration config, String category) {
 			dontEraseAnything = config.get(category, "DontEraseAnything",
 					dontEraseAnything).getBoolean(dontEraseAnything);
 			dontEraseTheseIds = config.get(category, "DontEraseTheseIds",
@@ -344,9 +338,8 @@ public final class Config {
 					dontRequireFuel).getBoolean(dontRequireFuel);
 			instantCook = config.get(category, "InstantCook", instantCook)
 					.getBoolean(instantCook);
-			restricted = config.get(category, "Restricted", restricted)
-					.getBoolean(restricted);
 		}
+
 		/**
 		 * {@inheritDoc}
 		 */
@@ -356,7 +349,7 @@ public final class Config {
 					+ ", dontEraseTheseIds=" + dontEraseTheseIds
 					+ ", dontRequireItems=" + dontRequireItems
 					+ ", dontRequireFuel=" + dontRequireFuel + ", instantCook="
-					+ instantCook + ", restricted=" + restricted + "]";
+					+ instantCook + "]";
 		}
 
 	}
@@ -377,7 +370,7 @@ public final class Config {
 		 * @param config
 		 *            the configuration.
 		 */
-		private PictureFactory(final Configuration config) {
+		private PictureFactory(Configuration config) {
 			super(config, CATEGORY);
 		}
 
@@ -411,7 +404,7 @@ public final class Config {
 		 * @param config
 		 *            the configuration.
 		 */
-		private ModelFactory(final Configuration config) {
+		private ModelFactory(Configuration config) {
 			super(config, CATEGORY);
 		}
 
@@ -439,7 +432,6 @@ public final class Config {
 		 */
 		Manual {
 
-			@Override
 			public String toString() {
 				return "manual";
 			}
@@ -450,7 +442,6 @@ public final class Config {
 		 */
 		Menu {
 
-			@Override
 			public String toString() {
 				return "menu";
 			}
@@ -461,7 +452,6 @@ public final class Config {
 		 */
 		None {
 
-			@Override
 			public String toString() {
 				return "none";
 			}
@@ -475,7 +465,7 @@ public final class Config {
 		 *            string to parse.
 		 * @return corresponding color selection mode.
 		 */
-		public static ColorSelection parse(final String s) {
+		public static ColorSelection parse(String s) {
 			if (s.equals("menu")) {
 				return ColorSelection.Menu;
 			} else if (s.equals("manual")) {

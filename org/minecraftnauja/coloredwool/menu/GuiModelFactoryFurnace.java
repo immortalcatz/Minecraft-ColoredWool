@@ -26,7 +26,7 @@ public class GuiModelFactoryFurnace extends GuiContainer {
 	/**
 	 * Tile entity.
 	 */
-	private final TileEntityModelFactory factory;
+	private TileEntityModelFactory factory;
 
 	/**
 	 * Initializing constructor.
@@ -36,8 +36,8 @@ public class GuiModelFactoryFurnace extends GuiContainer {
 	 * @param factory
 	 *            tile entity.
 	 */
-	public GuiModelFactoryFurnace(final InventoryPlayer inventoryplayer,
-			final TileEntityModelFactory factory) {
+	public GuiModelFactoryFurnace(InventoryPlayer inventoryplayer,
+			TileEntityModelFactory factory) {
 		super(new ContainerFactory(inventoryplayer, factory));
 		this.factory = factory;
 	}
@@ -46,8 +46,7 @@ public class GuiModelFactoryFurnace extends GuiContainer {
 	 * {@inheritDoc}
 	 */
 	@Override
-	protected void drawGuiContainerForegroundLayer(final int par1,
-			final int par2) {
+	protected void drawGuiContainerForegroundLayer(int par1, int par2) {
 		fontRenderer.drawString("Model Factory", 48, 6, 4210752);
 		fontRenderer.drawString("Inventory", 8, ySize - 96 + 2, 4210752);
 	}
@@ -56,25 +55,25 @@ public class GuiModelFactoryFurnace extends GuiContainer {
 	 * {@inheritDoc}
 	 */
 	@Override
-	protected void drawGuiContainerBackgroundLayer(final float par1,
-			final int par2, final int par3) {
+	protected void drawGuiContainerBackgroundLayer(float par1, int par2,
+			int par3) {
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-		mc.func_110434_K().func_110577_a(TEXTURE);
-		final int x = (width - xSize) / 2;
-		final int y = (height - ySize) / 2;
+		mc.getTextureManager().bindTexture(TEXTURE);
+		int x = (width - xSize) / 2;
+		int y = (height - ySize) / 2;
 		drawTexturedModalRect(x, y, 0, 0, xSize, ySize);
 
 		if (factory.isBurning()) {
-			final int l = factory.getBurnTimeRemainingScaled(12);
+			int l = factory.getBurnTimeRemainingScaled(12);
 			drawTexturedModalRect(x + 81, y + 19 + 12 - l, 176, 12 - l, 14,
 					l + 2);
 		}
 
 		int i1 = factory.getCookProgressScaled(29);
 		if (i1 > 0) {
-			if (i1 >= 14) {
+			if (i1 >= 14)
 				drawTexturedModalRect(x + 61, y + 41, 176, 14, 14, 4);
-			} else {
+			else {
 				drawTexturedModalRect(x + 61, y + 41, 176, 14, i1, 4);
 			}
 			drawTexturedModalRect(x + 100, y + 35, 176, 18, i1 - 14, 16);
@@ -86,11 +85,10 @@ public class GuiModelFactoryFurnace extends GuiContainer {
 					34 + (52 - i1), 34, i1);
 		}
 		if (i1 < 52) {
-			final int i2 = factory.getImageProgressWidth(34);
-			if ((i2 > 0) && (i1 >= 0)) {
+			int i2 = factory.getImageProgressWidth(34);
+			if ((i2 > 0) && (i1 >= 0))
 				drawTexturedModalRect(x + 134, y + 17 + 51 - i1, 176, 85 - i1,
 						i2, 1);
-			}
 		}
 	}
 

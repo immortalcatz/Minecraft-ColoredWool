@@ -20,16 +20,8 @@ public class TileEntityPictureFactory extends TileEntityFactory {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public boolean isRestricted() {
-		return ColoredWool.config.pictureFactory.restricted;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
 	public void updateEntity() {
-		final boolean flag = factoryBurnTime > 0;
+		boolean flag = factoryBurnTime > 0;
 		boolean flag1 = false;
 
 		if (factoryBurnTime > 0) {
@@ -50,8 +42,7 @@ public class TileEntityPictureFactory extends TileEntityFactory {
 					&& isActivated
 					&& image != null
 					&& (canSmelt() || ColoredWool.config.pictureFactory.dontRequireItems)) {
-				currentItemBurnTime = factoryBurnTime = ColoredWool.config.pictureFactory.dontRequireFuel
-						? 200
+				currentItemBurnTime = factoryBurnTime = ColoredWool.config.pictureFactory.dontRequireFuel ? 200
 						: TileEntityFurnace
 								.getItemBurnTime(factoryItemStacks[COAL]);
 				if (factoryBurnTime > 0) {
@@ -112,21 +103,20 @@ public class TileEntityPictureFactory extends TileEntityFactory {
 	}
 
 	private boolean generateImagePart() {
-		if ((currentX < 0) || (currentX >= imageWidth)) {
+		if ((currentX < 0) || (currentX >= imageWidth))
 			return true;
-		}
 		if ((currentY < 0) || (currentY >= imageHeight)) {
 			return true;
 		}
-		final int[] pos = nextVisiblePixel(currentX, currentY);
+		int[] pos = nextVisiblePixel(currentX, currentY);
 		if (pos == null) {
 			return true;
 		}
 		currentX = pos[0];
 		currentY = pos[1];
-		final int rgb = pos[2] & 0xFFFFFF;
+		int rgb = pos[2] & 0xFFFFFF;
 
-		final int l = worldObj.getBlockMetadata(xCoord, yCoord, zCoord);
+		int l = worldObj.getBlockMetadata(xCoord, yCoord, zCoord);
 		int x = xCoord;
 		int y = yCoord;
 		int z = zCoord;
@@ -157,7 +147,7 @@ public class TileEntityPictureFactory extends TileEntityFactory {
 		}
 		if (!blockAlreadyColored(x, y, z, rgb)) {
 			TileEntityColoredWool t = null;
-			final TileEntity e = worldObj.getBlockTileEntity(x, y, z);
+			TileEntity e = worldObj.getBlockTileEntity(x, y, z);
 			if (e != null && e instanceof TileEntityColoredWool) {
 				t = (TileEntityColoredWool) e;
 			} else {
@@ -190,9 +180,8 @@ public class TileEntityPictureFactory extends TileEntityFactory {
 	}
 
 	public int[] nextVisiblePixel(int column, int line) {
-		if ((column < 0) || (column >= imageWidth)) {
+		if ((column < 0) || (column >= imageWidth))
 			return null;
-		}
 		if ((line < 0) || (line >= imageHeight)) {
 			return null;
 		}
@@ -208,13 +197,13 @@ public class TileEntityPictureFactory extends TileEntityFactory {
 			}
 			argb = image.getRGB(column, line);
 		}
-		return new int[]{column, line, argb};
+		return new int[] { column, line, argb };
 	}
 
 	public void resetImage() {
-		if (image != null) {
+		if (image != null)
 			currentY = (imageHeight - 1);
-		} else {
+		else {
 			currentY = 0;
 		}
 		currentX = 0;
@@ -224,7 +213,7 @@ public class TileEntityPictureFactory extends TileEntityFactory {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void setImageToGenerate(final String name) {
+	public void setImageToGenerate(String name) {
 		if (name.equals(imageName)) {
 			return;
 		}
@@ -253,7 +242,7 @@ public class TileEntityPictureFactory extends TileEntityFactory {
 	 *            image name.
 	 * @return if it has been loaded.
 	 */
-	private boolean loadImage(final String name) {
+	private boolean loadImage(String name) {
 		image = ColoredWool.getLocalImage(name);
 		return image != null;
 	}
