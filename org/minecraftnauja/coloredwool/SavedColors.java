@@ -23,14 +23,14 @@ public class SavedColors {
 
 	private static Properties properties;
 
-	public static boolean addColor(String name, Color color) {
+	public static boolean addColor(final String name, final Color color) {
 		if ((name == null) || (color == null)) {
 			return false;
 		}
-		int rgb = ((char) color.getRed() << '\020')
+		final int rgb = ((char) color.getRed() << '\020')
 				+ ((char) color.getGreen() << '\b') + (char) color.getBlue();
-		String hex = Integer.toHexString(rgb);
-		ColorInformations coloredblockcolorinformations = new ColorInformations(
+		final String hex = Integer.toHexString(rgb);
+		final ColorInformations coloredblockcolorinformations = new ColorInformations(
 				hex, rgb, color);
 		if (savedColors.put(color, coloredblockcolorinformations) == null) {
 			nbColors += 1;
@@ -38,14 +38,14 @@ public class SavedColors {
 		return true;
 	}
 
-	public static boolean addColor(String hex) {
+	public static boolean addColor(final String hex) {
 		if (hex == null) {
 			return false;
 		}
-		Color color = Color.decode("0x" + hex);
-		int rgb = ((char) color.getRed() << '\020')
+		final Color color = Color.decode("0x" + hex);
+		final int rgb = ((char) color.getRed() << '\020')
 				+ ((char) color.getGreen() << '\b') + (char) color.getBlue();
-		ColorInformations coloredblockcolorinformations = new ColorInformations(
+		final ColorInformations coloredblockcolorinformations = new ColorInformations(
 				hex, rgb, color);
 		if (savedColors.put(color, coloredblockcolorinformations) == null) {
 			nbColors += 1;
@@ -53,7 +53,7 @@ public class SavedColors {
 		return true;
 	}
 
-	public static boolean removeColor(Color color) {
+	public static boolean removeColor(final Color color) {
 		if (savedColors.remove(color) != null) {
 			nbColors -= 1;
 			return true;
@@ -61,7 +61,7 @@ public class SavedColors {
 		return false;
 	}
 
-	public static boolean containsColor(Color color) {
+	public static boolean containsColor(final Color color) {
 		if (color == null) {
 			return false;
 		}
@@ -86,56 +86,57 @@ public class SavedColors {
 			if (properties != null) {
 				properties.clear();
 				int i = 0;
-				Iterator iterator = getColorsIterator();
+				final Iterator iterator = getColorsIterator();
 				while (iterator.hasNext()) {
-					Map.Entry entry = (Map.Entry) iterator.next();
-					ColorInformations coloredblockcolorinformations = (ColorInformations) entry
+					final Map.Entry entry = (Map.Entry) iterator.next();
+					final ColorInformations coloredblockcolorinformations = (ColorInformations) entry
 							.getValue();
 					properties.put("Color." + i,
 							coloredblockcolorinformations.getHex());
 					i++;
 				}
-				FileOutputStream fos = new FileOutputStream(file);
+				final FileOutputStream fos = new FileOutputStream(file);
 				properties.store(fos, "");
 				fos.close();
 			}
-		} catch (Exception e) {
+		} catch (final Exception e) {
 			FMLLog.log(ColoredWool.MOD_ID, Level.SEVERE, e,
 					"Could not save colors");
 		}
 	}
 
-	public static void load(String path) {
+	public static void load(final String path) {
 		try {
 			file = new File(path);
-			File p = file.getParentFile();
+			final File p = file.getParentFile();
 			if (p != null && !p.exists()) {
 				p.mkdirs();
 			}
 			if (!file.exists()) {
 				file.createNewFile();
 			}
-			FileInputStream fis = new FileInputStream(file);
+			final FileInputStream fis = new FileInputStream(file);
 			properties = new Properties();
 			fis.close();
-			Enumeration enumeration = properties.keys();
+			final Enumeration enumeration = properties.keys();
 			while (enumeration.hasMoreElements()) {
-				String name = (String) enumeration.nextElement();
+				final String name = (String) enumeration.nextElement();
 				loadElement(properties, name);
 			}
-		} catch (Exception e) {
+		} catch (final Exception e) {
 			FMLLog.log(ColoredWool.MOD_ID, Level.SEVERE, e,
 					"Could not load colors");
 		}
 	}
 
-	private static void loadElement(Properties properties, String name) {
+	private static void loadElement(final Properties properties,
+			final String name) {
 		try {
 			if (!name.startsWith("Color.")) {
 				return;
 			}
 			addColor((String) properties.get(name));
-		} catch (Exception e) {
+		} catch (final Exception e) {
 			FMLLog.log(ColoredWool.MOD_ID, Level.SEVERE, e,
 					"Could not load element %s", name);
 		}

@@ -21,8 +21,8 @@ public class ClientProxy extends CommonProxy {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void openColoredWoolMenu(EntityPlayer player,
-			TileEntityColoredWool tileEntity, Color color) {
+	public void openColoredWoolMenu(final EntityPlayer player,
+			final TileEntityColoredWool tileEntity, final Color color) {
 		ModLoader.openGUI(player, new GuiColoredWoolMenu(player, tileEntity,
 				color));
 	}
@@ -31,8 +31,8 @@ public class ClientProxy extends CommonProxy {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void openPictureFactoryImage(EntityPlayer player,
-			TileEntityPictureFactory tileEntity) {
+	public void openPictureFactoryImage(final EntityPlayer player,
+			final TileEntityPictureFactory tileEntity) {
 		ModLoader.openGUI(player, new GuiPictureFactoryImage(tileEntity));
 	}
 
@@ -40,8 +40,8 @@ public class ClientProxy extends CommonProxy {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void openModelFactoryMenu(EntityPlayer player,
-			TileEntityModelFactory tileEntity) {
+	public void openModelFactoryMenu(final EntityPlayer player,
+			final TileEntityModelFactory tileEntity) {
 		ModLoader.openGUI(player, new GuiModelFactoryMenu(player, tileEntity));
 	}
 

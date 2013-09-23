@@ -59,22 +59,22 @@ public class GuiColorButton extends GuiButton {
 	 *            height.
 	 * @param color
 	 */
-	public GuiColorButton(int i, int j, int k, int w, int h,
-			ColorInformations color) {
+	public GuiColorButton(final int i, final int j, final int k, final int w,
+			final int h, final ColorInformations color) {
 		super(i, j, k, w, h, "");
 		this.color = color;
-		this.xColor = (xPosition + width / 6);
-		this.yColor = (yPosition + height / 6);
-		this.widthColor = (width - width / 3);
-		this.heightColor = (height - height / 3);
-		this.selected = false;
+		xColor = (xPosition + width / 6);
+		yColor = (yPosition + height / 6);
+		widthColor = (width - width / 3);
+		heightColor = (height - height / 3);
+		selected = false;
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	protected int getHoverState(boolean par1) {
+	protected int getHoverState(final boolean par1) {
 		return selected ? 2 : super.getHoverState(par1);
 	}
 
@@ -82,10 +82,11 @@ public class GuiColorButton extends GuiButton {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void drawButton(Minecraft par1Minecraft, int par2, int par3) {
+	public void drawButton(final Minecraft par1Minecraft, final int par2,
+			final int par3) {
 		super.drawButton(par1Minecraft, par2, par3);
-		drawRect(this.xColor, this.yColor, this.xColor + this.widthColor,
-				this.yColor + this.heightColor, this.color.getColor().getRGB());
+		drawRect(xColor, yColor, xColor + widthColor, yColor + heightColor,
+				color.getColor().getRGB());
 	}
-	
+
 }

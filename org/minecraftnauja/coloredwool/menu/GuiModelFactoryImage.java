@@ -32,12 +32,12 @@ public class GuiModelFactoryImage extends GuiScreen {
 	/**
 	 * Player.
 	 */
-	private EntityPlayer player;
+	private final EntityPlayer player;
 
 	/**
 	 * Tile entity.
 	 */
-	private TileEntityModelFactory entity;
+	private final TileEntityModelFactory entity;
 
 	/**
 	 * Name text field.
@@ -60,16 +60,6 @@ public class GuiModelFactoryImage extends GuiScreen {
 	private String screenTitle;
 
 	/**
-	 * Update counter.
-	 */
-	private int updateCounter;
-
-	/**
-	 * Model type.
-	 */
-	private Model type;
-
-	/**
 	 * Initializing constructor.
 	 * 
 	 * @param player
@@ -79,12 +69,11 @@ public class GuiModelFactoryImage extends GuiScreen {
 	 * @param type
 	 *            type.
 	 */
-	public GuiModelFactoryImage(EntityPlayer player,
-			TileEntityModelFactory entity, Model type) {
+	public GuiModelFactoryImage(final EntityPlayer player,
+			final TileEntityModelFactory entity, final Model type) {
 		super();
 		this.player = player;
 		this.entity = entity;
-		this.type = type;
 	}
 
 	/**
@@ -96,7 +85,7 @@ public class GuiModelFactoryImage extends GuiScreen {
 		screenTitle = "Choose model to generate";
 		nameButton = new GuiTextField(fontRenderer, width / 2 - 100, 60, 200,
 				20);
-		String name = entity.getImageName();
+		final String name = entity.getImageName();
 		nameButton.setText(name == null ? "" : name);
 		nameButton.setEnabled(true);
 		nameButton.setFocused(true);
@@ -112,7 +101,7 @@ public class GuiModelFactoryImage extends GuiScreen {
 	}
 
 	public void close() {
-		String name = nameButton.getText();
+		final String name = nameButton.getText();
 		entity.sendImageToServer(name);
 		mc.displayGuiScreen(null);
 	}
@@ -123,23 +112,22 @@ public class GuiModelFactoryImage extends GuiScreen {
 	@Override
 	public void updateScreen() {
 		super.updateScreen();
-		updateCounter += 1;
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	protected void actionPerformed(GuiButton par1GuiButton) {
+	protected void actionPerformed(final GuiButton par1GuiButton) {
 		if (par1GuiButton.enabled) {
 			switch (par1GuiButton.id) {
-			case 0:
-				close();
-				break;
-			case CANCEL:
-				ModLoader.openGUI(player, new GuiModelFactoryMenu(player,
-						entity));
-				break;
+				case 0 :
+					close();
+					break;
+				case CANCEL :
+					ModLoader.openGUI(player, new GuiModelFactoryMenu(player,
+							entity));
+					break;
 			}
 		}
 	}
@@ -148,7 +136,7 @@ public class GuiModelFactoryImage extends GuiScreen {
 	 * {@inheritDoc}
 	 */
 	@Override
-	protected void keyTyped(char par1, int par2) {
+	protected void keyTyped(final char par1, final int par2) {
 		nameButton.textboxKeyTyped(par1, par2);
 		checkName();
 		if (par1 == '\r') {
@@ -157,8 +145,8 @@ public class GuiModelFactoryImage extends GuiScreen {
 	}
 
 	public boolean checkName() {
-		String s = nameButton.getText();
-		boolean flag = s.length() > 0;
+		final String s = nameButton.getText();
+		final boolean flag = s.length() > 0;
 		doneButton.enabled = flag;
 		return flag;
 	}
@@ -167,7 +155,7 @@ public class GuiModelFactoryImage extends GuiScreen {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void drawScreen(int par1, int par2, float par3) {
+	public void drawScreen(final int par1, final int par2, final float par3) {
 		drawDefaultBackground();
 		drawCenteredString(fontRenderer, screenTitle, width / 2, 40, 16777215);
 		nameButton.drawTextBox();

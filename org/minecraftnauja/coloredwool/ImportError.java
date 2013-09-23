@@ -20,7 +20,7 @@ public enum ImportError {
 	 * @param message
 	 *            error message.
 	 */
-	private ImportError(String message) {
+	private ImportError(final String message) {
 		this.message = message;
 	}
 

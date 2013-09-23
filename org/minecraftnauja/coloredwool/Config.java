@@ -17,11 +17,11 @@ public final class Config {
 	 *            initialization event.
 	 * @return the configuration.
 	 */
-	public static Config load(FMLPreInitializationEvent event) {
-		Configuration config = new Configuration(
+	public static Config load(final FMLPreInitializationEvent event) {
+		final Configuration config = new Configuration(
 				event.getSuggestedConfigurationFile());
 		config.load();
-		Config c = new Config(event, config);
+		final Config c = new Config(event, config);
 		config.save();
 		return c;
 	}
@@ -54,7 +54,8 @@ public final class Config {
 	 * @param config
 	 *            the configuration.
 	 */
-	private Config(FMLPreInitializationEvent event, Configuration config) {
+	private Config(final FMLPreInitializationEvent event,
+			final Configuration config) {
 		ids = new Ids(config);
 		coloredWool = new ColoredWool(event, config);
 		pictureFactory = new PictureFactory(config);
@@ -127,7 +128,7 @@ public final class Config {
 		 * @param config
 		 *            the configuration.
 		 */
-		private Ids(Configuration config) {
+		private Ids(final Configuration config) {
 			// Blocks.
 			coloredWoolId = config.getBlock("ColoredWool", coloredWoolId)
 					.getInt();
@@ -230,8 +231,8 @@ public final class Config {
 		 * @param config
 		 *            the configuration.
 		 */
-		private ColoredWool(FMLPreInitializationEvent event,
-				Configuration config) {
+		private ColoredWool(final FMLPreInitializationEvent event,
+				final Configuration config) {
 			File f = new File(event.getModConfigurationDirectory(), "images");
 			folder = config.get(CATEGORY, "Folder", f.getAbsolutePath())
 					.getString();
@@ -268,8 +269,8 @@ public final class Config {
 		 *            maximal value.
 		 * @return the value.
 		 */
-		private int get(Configuration config, String key, int value, int min,
-				int max) {
+		private int get(final Configuration config, final String key,
+				final int value, final int min, final int max) {
 			return Math.max(Math.min(
 					config.get(CATEGORY, key, value).getInt(value), max), min);
 		}
@@ -327,7 +328,7 @@ public final class Config {
 		 * @param category
 		 *            configuration category.
 		 */
-		private Factory(Configuration config, String category) {
+		private Factory(final Configuration config, final String category) {
 			dontEraseAnything = config.get(category, "DontEraseAnything",
 					dontEraseAnything).getBoolean(dontEraseAnything);
 			dontEraseTheseIds = config.get(category, "DontEraseTheseIds",
@@ -370,7 +371,7 @@ public final class Config {
 		 * @param config
 		 *            the configuration.
 		 */
-		private PictureFactory(Configuration config) {
+		private PictureFactory(final Configuration config) {
 			super(config, CATEGORY);
 		}
 
@@ -404,7 +405,7 @@ public final class Config {
 		 * @param config
 		 *            the configuration.
 		 */
-		private ModelFactory(Configuration config) {
+		private ModelFactory(final Configuration config) {
 			super(config, CATEGORY);
 		}
 
@@ -432,6 +433,7 @@ public final class Config {
 		 */
 		Manual {
 
+			@Override
 			public String toString() {
 				return "manual";
 			}
@@ -442,6 +444,7 @@ public final class Config {
 		 */
 		Menu {
 
+			@Override
 			public String toString() {
 				return "menu";
 			}
@@ -452,6 +455,7 @@ public final class Config {
 		 */
 		None {
 
+			@Override
 			public String toString() {
 				return "none";
 			}
@@ -465,7 +469,7 @@ public final class Config {
 		 *            string to parse.
 		 * @return corresponding color selection mode.
 		 */
-		public static ColorSelection parse(String s) {
+		public static ColorSelection parse(final String s) {
 			if (s.equals("menu")) {
 				return ColorSelection.Menu;
 			} else if (s.equals("manual")) {

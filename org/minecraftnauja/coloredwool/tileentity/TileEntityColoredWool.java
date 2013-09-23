@@ -48,20 +48,13 @@ public class TileEntityColoredWool extends TileEntity {
 	}
 
 	/**
-	 * Verifies that the red, green, blue components are correct.
-	 */
-	private void verifyValues() {
-		color &= 0xFFFFFF;
-	}
-
-	/**
 	 * Verifies the value of a component.
 	 * 
 	 * @param value
 	 *            the value.
 	 * @return the value.
 	 */
-	private int verifyValue(int value) {
+	private int verifyValue(final int value) {
 		return Math.max(Math.min(value, 255), 0);
 	}
 
@@ -75,7 +68,7 @@ public class TileEntityColoredWool extends TileEntity {
 	 * @param blue
 	 *            value of blue component.
 	 */
-	public void setColor(int red, int green, int blue) {
+	public void setColor(final int red, final int green, final int blue) {
 		color = ((verifyValue(red) & 0xFF) << 16)
 				+ ((verifyValue(green) & 0xFF) << 8)
 				+ (verifyValue(blue) & 0xFF);
@@ -85,7 +78,7 @@ public class TileEntityColoredWool extends TileEntity {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void readFromNBT(NBTTagCompound par1NBTTagCompound) {
+	public void readFromNBT(final NBTTagCompound par1NBTTagCompound) {
 		super.readFromNBT(par1NBTTagCompound);
 		color = par1NBTTagCompound.getInteger("Color");
 	}
@@ -94,7 +87,7 @@ public class TileEntityColoredWool extends TileEntity {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void writeToNBT(NBTTagCompound par1NBTTagCompound) {
+	public void writeToNBT(final NBTTagCompound par1NBTTagCompound) {
 		super.writeToNBT(par1NBTTagCompound);
 		par1NBTTagCompound.setInteger("Color", color);
 	}
@@ -104,7 +97,7 @@ public class TileEntityColoredWool extends TileEntity {
 	 */
 	@Override
 	public net.minecraft.network.packet.Packet getDescriptionPacket() {
-		NBTTagCompound tag = new NBTTagCompound();
+		final NBTTagCompound tag = new NBTTagCompound();
 		writeToNBT(tag);
 		return new Packet132TileEntityData(xCoord, yCoord, zCoord, 0, tag);
 	}
@@ -113,7 +106,8 @@ public class TileEntityColoredWool extends TileEntity {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void onDataPacket(INetworkManager net, Packet132TileEntityData pkt) {
+	public void onDataPacket(final INetworkManager net,
+			final Packet132TileEntityData pkt) {
 		readFromNBT(pkt.data);
 	}
 
@@ -144,19 +138,19 @@ public class TileEntityColoredWool extends TileEntity {
 	 */
 	public void sendColorToPlayers() {
 		try {
-			ByteArrayOutputStream bos = new ByteArrayOutputStream();
-			DataOutputStream dos = new DataOutputStream(bos);
+			final ByteArrayOutputStream bos = new ByteArrayOutputStream();
+			final DataOutputStream dos = new DataOutputStream(bos);
 			dos.writeInt(Packet.UpdateColoredWoolClient.ordinal());
 			dos.writeInt(xCoord);
 			dos.writeInt(yCoord);
 			dos.writeInt(zCoord);
 			dos.writeInt(color);
-			Packet250CustomPayload p = new Packet250CustomPayload();
+			final Packet250CustomPayload p = new Packet250CustomPayload();
 			p.channel = ColoredWool.MOD_ID;
 			p.data = bos.toByteArray();
 			p.length = bos.size();
 			PacketDispatcher.sendPacketToAllPlayers(p);
-		} catch (IOException e) {
+		} catch (final IOException e) {
 			FMLLog.log(ColoredWool.MOD_ID, Level.SEVERE, e,
 					"Could not send packet");
 		}
@@ -168,21 +162,21 @@ public class TileEntityColoredWool extends TileEntity {
 	 * @param color
 	 *            the color.
 	 */
-	public void sendColorToServer(int color) {
+	public void sendColorToServer(final int color) {
 		try {
-			ByteArrayOutputStream bos = new ByteArrayOutputStream();
-			DataOutputStream dos = new DataOutputStream(bos);
+			final ByteArrayOutputStream bos = new ByteArrayOutputStream();
+			final DataOutputStream dos = new DataOutputStream(bos);
 			dos.writeInt(Packet.UpdateColoredWoolServer.ordinal());
 			dos.writeInt(xCoord);
 			dos.writeInt(yCoord);
 			dos.writeInt(zCoord);
 			dos.writeInt(color);
-			Packet250CustomPayload p = new Packet250CustomPayload();
+			final Packet250CustomPayload p = new Packet250CustomPayload();
 			p.channel = ColoredWool.MOD_ID;
 			p.data = bos.toByteArray();
 			p.length = bos.size();
 			PacketDispatcher.sendPacketToServer(p);
-		} catch (IOException e) {
+		} catch (final IOException e) {
 			FMLLog.log(ColoredWool.MOD_ID, Level.SEVERE, e,
 					"Could not send packet");
 		}
@@ -195,11 +189,13 @@ public class TileEntityColoredWool extends TileEntity {
 
 		Step {
 
-			public Mode next(TileEntityColoredWool entity) {
+			@Override
+			public Mode next(final TileEntityColoredWool entity) {
 				return Red;
 			}
 
-			public void apply(TileEntityColoredWool entity) {
+			@Override
+			public void apply(final TileEntityColoredWool entity) {
 				entity.colorStep++;
 				if (entity.colorStep > ColoredWool.config.coloredWool.maxColorStep) {
 					entity.colorStep = 1;
@@ -211,11 +207,13 @@ public class TileEntityColoredWool extends TileEntity {
 
 		Red {
 
-			public Mode next(TileEntityColoredWool entity) {
+			@Override
+			public Mode next(final TileEntityColoredWool entity) {
 				return Green;
 			}
 
-			public void apply(TileEntityColoredWool entity) {
+			@Override
+			public void apply(final TileEntityColoredWool entity) {
 				addColor(entity, 0xFF0000, 0x00FFFF, 16);
 			}
 
@@ -223,11 +221,13 @@ public class TileEntityColoredWool extends TileEntity {
 
 		Green {
 
-			public Mode next(TileEntityColoredWool entity) {
+			@Override
+			public Mode next(final TileEntityColoredWool entity) {
 				return Blue;
 			}
 
-			public void apply(TileEntityColoredWool entity) {
+			@Override
+			public void apply(final TileEntityColoredWool entity) {
 				addColor(entity, 0xFF00, 0xFF00FF, 8);
 			}
 
@@ -235,12 +235,14 @@ public class TileEntityColoredWool extends TileEntity {
 
 		Blue {
 
-			public Mode next(TileEntityColoredWool entity) {
+			@Override
+			public Mode next(final TileEntityColoredWool entity) {
 				entity.playNote();
 				return Step;
 			}
 
-			public void apply(TileEntityColoredWool entity) {
+			@Override
+			public void apply(final TileEntityColoredWool entity) {
 				addColor(entity, 0xFF, 0xFFFF00, 0);
 			}
 
@@ -276,9 +278,9 @@ public class TileEntityColoredWool extends TileEntity {
 		 * @param offset
 		 *            offset of the component.
 		 */
-		public static void addColor(TileEntityColoredWool entity, int maskRead,
-				int maskReset, int offset) {
-			int c = ((entity.color & maskRead) >> offset)
+		public static void addColor(final TileEntityColoredWool entity,
+				final int maskRead, final int maskReset, final int offset) {
+			final int c = ((entity.color & maskRead) >> offset)
 					+ (255 / entity.colorStep);
 			entity.color &= maskReset;
 			if (c > 255) {

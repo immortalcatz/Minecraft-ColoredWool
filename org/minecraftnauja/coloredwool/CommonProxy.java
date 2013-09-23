@@ -23,8 +23,8 @@ public class CommonProxy {
 	 * @param color
 	 *            current color.
 	 */
-	public void openColoredWoolMenu(EntityPlayer player,
-			TileEntityColoredWool tileEntity, Color color) {
+	public void openColoredWoolMenu(final EntityPlayer player,
+			final TileEntityColoredWool tileEntity, final Color color) {
 	}
 
 	/**
@@ -35,8 +35,8 @@ public class CommonProxy {
 	 * @param tileEntity
 	 *            tile entity.
 	 */
-	public void openPictureFactoryImage(EntityPlayer player,
-			TileEntityPictureFactory tileEntity) {
+	public void openPictureFactoryImage(final EntityPlayer player,
+			final TileEntityPictureFactory tileEntity) {
 	}
 
 	/**
@@ -47,8 +47,8 @@ public class CommonProxy {
 	 * @param tileEntity
 	 *            tile entity.
 	 */
-	public void openModelFactoryMenu(EntityPlayer player,
-			TileEntityModelFactory tileEntity) {
+	public void openModelFactoryMenu(final EntityPlayer player,
+			final TileEntityModelFactory tileEntity) {
 	}
 
 }
